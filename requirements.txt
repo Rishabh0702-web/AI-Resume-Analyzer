@@ -1,0 +1,15 @@
+# requirements.txt
+# B9 fix: Re-saved as UTF-8 (original was UTF-16 with BOM, causing pip to fail).
+#         Trimmed to only the packages this project actually uses.
+#         Pin to minimum working versions; use `pip install -r requirements.txt`.
+
+streamlit>=1.35.0
+pdfplumber>=0.10.0
+python-docx>=1.1.0
+pandas>=2.0.0
+plotly>=5.18.0
+sentence-transformers>=2.7.0
+scikit-learn>=1.4.0
+numpy>=1.26.0
+torch>=2.1.0          # required by sentence-transformers
+pymongo[srv]>=4.7.0   # MongoDB Atlas connectivity
