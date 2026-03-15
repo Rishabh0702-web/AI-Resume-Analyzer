@@ -8,7 +8,6 @@ import os
 import sys
 import json
 import pandas as pd
-from backend.database import save_result, get_database_status
 
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -23,6 +22,7 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
+from backend.database import save_result, get_database_status
 from backend.extractor import extract_text
 from backend.section_splitter import split_sections
 from backend.scorer import score_resume

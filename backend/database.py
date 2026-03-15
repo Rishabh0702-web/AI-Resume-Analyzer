@@ -12,6 +12,7 @@ via `get_database_status()`.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Any
 
 try:
@@ -20,9 +21,62 @@ except Exception:
     MongoClient = None
 
 
-_uri = (os.getenv("MONGODB_URI") or os.getenv("MONGO_URI") or "").strip()
-_db_name = (os.getenv("MONGO_DB_NAME") or "resume_analyzer").strip()
-_collection_name = (os.getenv("MONGO_COLLECTION_NAME") or "analysis_results").strip()
+def _read_dotenv_file() -> dict[str, str]:
+    """Read simple KEY=VALUE pairs from project .env if present."""
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        return {}
+
+    data: dict[str, str] = {}
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip().lstrip("\ufeff")
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip().lstrip("\ufeff")
+        value = value.strip().strip('"').strip("'")
+        if key:
+            data[key] = value
+    return data
+
+
+def _read_streamlit_secret(*keys: str) -> str:
+    """Fetch first non-empty key from Streamlit secrets, if available."""
+    try:
+        import streamlit as st
+
+        for key in keys:
+            value = st.secrets.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+    except Exception:
+        pass
+    return ""
+
+
+def _resolve_setting(*keys: str, default: str = "") -> str:
+    """Resolve setting using env vars, Streamlit secrets, then .env fallback."""
+    for key in keys:
+        value = os.getenv(key)
+        if value and value.strip():
+            return value.strip()
+
+    secret_value = _read_streamlit_secret(*keys)
+    if secret_value:
+        return secret_value
+
+    dotenv_data = _read_dotenv_file()
+    for key in keys:
+        value = dotenv_data.get(key)
+        if value and value.strip():
+            return value.strip()
+
+    return default.strip()
+
+
+_uri = _resolve_setting("MONGODB_URI", "MONGO_URI")
+_db_name = _resolve_setting("MONGO_DB_NAME", default="resume_analyzer")
+_collection_name = _resolve_setting("MONGO_COLLECTION_NAME", default="analysis_results")
 
 _collection = None
 _last_error = ""
