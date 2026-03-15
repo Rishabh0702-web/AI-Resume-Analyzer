@@ -8,12 +8,11 @@ import os
 import sys
 import json
 import pandas as pd
-from backend.database import save_result, get_database_status
-
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="ResumeIQ — Dashboard",
+    page_icon="⬡",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -54,11 +53,8 @@ load_model()
 inject_styles()
 
 # ── Session state ──────────────────────────────────────────────────────────────
-for key, val in [
-    ("analysis_running", False),
-    ("analysis_done", False),
-    ("overwrite_confirmed", False),
-]:
+for key, val in [("analysis_running", False), ("analysis_done", False),
+                 ("confirmed_overwrite", False)]:
     if key not in st.session_state:
         st.session_state[key] = val
 
@@ -68,7 +64,8 @@ extracted_path = os.path.join(OUTPUT_DIR, "extracted.json")
 domains_path   = os.path.join(OUTPUT_DIR, "domains.json")
 results_exist  = os.path.exists(ranking_path) and os.path.exists(extracted_path)
 
-if results_exist and not st.session_state.analysis_done:
+# Only auto-show old results if user hasn't started a new overwrite flow
+if results_exist and not st.session_state.analysis_done and not st.session_state.confirmed_overwrite:
     st.session_state.analysis_done = True
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -101,32 +98,17 @@ uploaded_files = st.file_uploader(
     help="Supported: PDF, DOCX, TXT. Max 10 MB per file.",
 )
 
-# Show database status so Atlas issues are visible to the user.
-db_status = get_database_status()
-if db_status["connected"]:
-    st.caption(
-        f"Database connected: {db_status['db_name']}.{db_status['collection_name']}"
-    )
-else:
-    st.warning(
-        "MongoDB not connected. Saving to Atlas is disabled. "
-        f"Reason: {db_status['error'] or 'unknown error'}"
-    )
-
 # ── Analyse button + re-run guard ─────────────────────────────────────────────
 btn_col, info_col = st.columns([1, 4])
 with btn_col:
     analyze = st.button("🚀 Analyse Resumes", use_container_width=True)
 
-if analyze and results_exist and not st.session_state.overwrite_confirmed:
+if analyze and results_exist and st.session_state.analysis_done and not st.session_state.confirmed_overwrite:
     with info_col:
         st.warning("⚠️ Previous results exist. Click **Analyse** again to overwrite them.")
-    st.session_state.overwrite_confirmed = True
+    st.session_state.analysis_done = False
+    st.session_state.confirmed_overwrite = True
     st.stop()
-
-if analyze:
-    # Reset confirmation once user has confirmed and run proceeds.
-    st.session_state.overwrite_confirmed = False
 
 # ══════════════════════════════════════════════════════════════════════════════
 # ANALYSIS LOGIC
@@ -172,15 +154,6 @@ if analyze and not st.session_state.analysis_running:
         results.append({"resume": safe_name, "score": score, "sections": sections})
         extracted_data[safe_name] = sections
 
-        # Persist each analyzed resume; ignore DB failures so UI flow continues.
-        data = {
-            "resume_name": safe_name,
-            "score": score,
-            "sections": sections,
-        }
-        save_result(data)
-
-
     # Save outputs
     ranking_df = pd.DataFrame(
         [{"Resume": r["resume"], "Score": r["score"]} for r in results]
@@ -204,8 +177,9 @@ if analyze and not st.session_state.analysis_running:
         except OSError:
             pass
 
-    st.session_state.analysis_running = False
-    st.session_state.analysis_done    = True
+    st.session_state.analysis_running    = False
+    st.session_state.analysis_done       = True
+    st.session_state.confirmed_overwrite = False
     progress.progress(100, text="✅ Analysis complete!")
     status.empty()
 

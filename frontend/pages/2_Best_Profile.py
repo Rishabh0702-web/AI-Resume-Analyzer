@@ -1,5 +1,5 @@
 """
-frontend/pages/2_Best_Profile.py — Semantic job-role matching.
+frontend/pages/Best_profile.py — Semantic job-role matching.
 Full UI/UX redesign on top of all previous bug fixes.
 """
 
@@ -64,7 +64,7 @@ if not os.path.exists(ranking_path) or not os.path.exists(extracted_path):
     Upload and analyse a batch of resumes on the Dashboard first.
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("app.py", label="Go to Dashboard ->")
+    st.page_link("app.py", label="Go to Dashboard →", icon="⬡")
     st.stop()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -120,17 +120,12 @@ job_query = st.text_area(
 
 col_slider, col_btn = st.columns([3, 1])
 with col_slider:
-  max_k = min(10, num_candidates)
-  if max_k <= 1:
-    top_k = 1
-    st.caption("Only one analysed resume is available right now.")
-  else:
     top_k = st.slider(
-      "Candidates to return",
-      min_value=1,
-      max_value=max_k,
-      value=min(5, max_k),
-      help="How many top-matching candidates to show",
+        "Candidates to return",
+        min_value=1,
+        max_value=min(10, num_candidates),
+        value=min(5, num_candidates),
+        help="How many top-matching candidates to show",
     )
 with col_btn:
     st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)

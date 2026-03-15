@@ -161,7 +161,7 @@ if not os.path.exists(ranking_path) or not os.path.exists(extracted_path):
     Run a bulk analysis on the Dashboard first, then come back here to compare.
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("app.py", label="Go to Dashboard ->")
+    st.page_link("app.py", label="Go to Dashboard →", icon="⬡")
     st.stop()
 
 # ── Load data ─────────────────────────────────────────────────────────────────
@@ -172,10 +172,6 @@ with open(extracted_path) as f:
     extracted_data: dict = json.load(f)
 
 all_resumes = ranking_df["resume"].tolist()
-score_lookup = {
-    str(row["resume"]): float(row["score"])
-    for _, row in ranking_df.iterrows()
-}
 
 if len(all_resumes) < 2:
     st.warning("You need at least 2 analysed resumes to use the compare feature. Upload more on the Dashboard.")
@@ -215,33 +211,12 @@ MAX_PER_SECTION = {
 }
 CARD_COLORS = ["#6ee7b7", "#818cf8", "#f472b6", "#fb923c", "#4ade80"]
 
-
-def hex_to_rgba(hex_color: str, alpha: float) -> str:
-  """Convert '#RRGGBB' to Plotly-friendly 'rgba(r,g,b,a)' string."""
-  hex_color = hex_color.lstrip("#")
-  if len(hex_color) != 6:
-    return f"rgba(255,255,255,{alpha})"
-  r = int(hex_color[0:2], 16)
-  g = int(hex_color[2:4], 16)
-  b = int(hex_color[4:6], 16)
-  return f"rgba({r},{g},{b},{alpha})"
-
-
-def display_name(filename: str) -> str:
-    """Make uploaded filename easier to read in UI."""
-    stem = os.path.splitext(filename)[0]
-    return stem.replace("_", " ").strip() or filename
-
 candidates = []
 for name in selected:
     sections   = extracted_data.get(name, {})
-    score_result = score_resume(sections, return_breakdown=True)
-    if isinstance(score_result, tuple):
-        total, breakdown = score_result
-    else:
-        total = float(score_result)
-        breakdown = {}
-    stored_score = score_lookup.get(name, total)
+    total, breakdown = score_resume(sections, return_breakdown=True)
+    score_rows = ranking_df.loc[ranking_df["resume"] == name, "score"]
+    stored_score = float(score_rows.values[0]) if not score_rows.empty else total
 
     # Extract skills list
     raw_skills = sections.get("skills", "")
@@ -290,7 +265,7 @@ for i, (col, c) in enumerate(zip(cols, candidates)):
         st.markdown(f"""
 <div class="card" style="border-top:3px solid {color};text-align:center;padding:22px 18px">
   {'<div class="winner-badge" style="margin:0 auto 10px">🏆 Top Score</div>' if is_top else '<div style="height:22px;margin-bottom:10px"></div>'}
-    <div class="compare-name" style="text-align:center;margin-bottom:14px">{display_name(c['name'])}</div>
+  <div class="compare-name" style="text-align:center;margin-bottom:14px">{c['name']}</div>
   <div class="compare-score-big" style="color:{s_col}">{c['score']}</div>
   <div class="compare-label">/ 65 points</div>
   <div style="height:5px;background:var(--surface3);border-radius:99px;overflow:hidden;margin-top:14px">
@@ -314,6 +289,12 @@ with left_col:
     sections_order = list(MAX_PER_SECTION.keys())
     fig = go.Figure()
 
+    def hex_to_rgba(hex_color, alpha=0.09):
+        """Convert hex color to rgba string for Plotly compatibility."""
+        h = hex_color.lstrip('#')
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        return f"rgba({r},{g},{b},{alpha})"
+
     for i, c in enumerate(candidates):
         color_hex = CARD_COLORS[i % len(CARD_COLORS)]
         vals = [c["breakdown"].get(s, 0) for s in sections_order]
@@ -324,7 +305,7 @@ with left_col:
             r=vals_norm + [vals_norm[0]],
             theta=sections_order + [sections_order[0]],
             fill="toself",
-          fillcolor=hex_to_rgba(color_hex, 0.15),
+            fillcolor=hex_to_rgba(color_hex),
             line=dict(color=color_hex, width=2),
             marker=dict(size=5, color=color_hex),
             name=c["name"],
@@ -433,7 +414,7 @@ for i, (col, c) in enumerate(zip(skill_cols, candidates)):
     with col:
         st.markdown(f"""
 <div class="card" style="border-top:3px solid {color};padding:18px 20px">
-    <div class="compare-name" style="margin-bottom:12px">{display_name(c['name'])}</div>
+  <div class="compare-name" style="margin-bottom:12px">{c['name']}</div>
 
   <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);
               text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">
@@ -516,32 +497,32 @@ ranked_candidates = sorted(candidates, key=lambda x: x["score"], reverse=True)
 
 medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"]
 
-rank_index = st.slider(
-    "Slide through compared resumes",
-    min_value=1,
-    max_value=len(ranked_candidates),
-    value=1,
-)
+for rank, c in enumerate(ranked_candidates):
+    color   = CARD_COLORS[candidates.index(c) % len(CARD_COLORS)]
+    s_col   = score_color(c["score"])
+    medal   = medals[rank]
+    dom_top = max(c["domains"], key=c["domains"].get)
+    dom_conf = round(c["domains"][dom_top] * 100, 1)
+    n_skills = len(c["skills"])
+    n_unique = len(set(c["skills"]) - shared_skills)
 
-rank = rank_index - 1
-c = ranked_candidates[rank]
-medal = medals[rank]
-dom_top = max(c["domains"], key=c["domains"].get)
-dom_conf = round(c["domains"][dom_top] * 100, 1)
-n_skills = len(c["skills"])
-n_unique = len(set(c["skills"]) - shared_skills)
+    badge = '<span class="winner-badge">Top Pick</span>' if rank == 0 else ''
+    detail_line = f'🎯 {dom_top} ({dom_conf}%)  ·  ⚡ {n_skills} skills ({n_unique} unique)'
 
-with st.container(border=True):
-    left, right = st.columns([5, 1])
-    with left:
-        title = f"{medal} {display_name(c['name'])}"
-        if rank == 0:
-            title += "  ·  Top Pick"
-        st.markdown(f"**{title}**")
-        st.caption(f"🎯 {dom_top} ({dom_conf}%)   |   ⚡ {n_skills} ({n_unique} unique)")
+    left_c, right_c = st.columns([5, 1])
+    with left_c:
+        st.markdown(f"""<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid {color};border-radius:12px;padding:18px 22px;margin-bottom:8px;animation:fadeUp 0.35s ease both;animation-delay:{rank*0.07}s">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<span style="font-size:1.2rem">{medal}</span>
+<span class="compare-name">{c['name']}</span>
+{badge}
+</div>
+<div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted2)">{detail_line}</div>
+</div>""", unsafe_allow_html=True)
+    with right_c:
+        st.markdown(f"""<div style="text-align:right;padding-top:20px">
+<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:{s_col};line-height:1">{c['score']}</div>
+<div class="compare-label">/ 65</div>
+</div>""", unsafe_allow_html=True)
 
-        # Visual slider bars for quick comparison without verbose text labels.
-        st.progress(min(1.0, c["score"] / 65), text=f"{c['score']} / 65")
-        st.progress(min(1.0, dom_conf / 100), text=f"{dom_conf}%")
-    with right:
-        st.markdown(f"**{c['score']} / 65**")
+

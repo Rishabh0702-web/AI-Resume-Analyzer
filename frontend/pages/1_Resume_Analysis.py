@@ -1,5 +1,5 @@
 """
-frontend/pages/1_Resume_Analysis.py — Single resume deep-dive.
+frontend/pages/resume_analysis.py — Single resume deep-dive.
 Full UI/UX redesign on top of all previous bug fixes.
 """
 
