@@ -33,7 +33,31 @@ load_model()
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO HEADER
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
+_is_light = st.session_state.get("theme", "dark") == "light"
+
+if _is_light:
+    st.markdown("""
+<div class="page-hero">
+  <!-- Floating score preview card -->
+  <div class="hero-float-card hero-float-right" style="max-width:165px;text-align:center">
+    <div style="font-size:0.65rem;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Sample Score</div>
+    <div style="font-family:'Inter',sans-serif;font-size:2.4rem;font-weight:900;color:#2563eb;letter-spacing:-0.04em;line-height:1">87%</div>
+    <div style="font-size:0.7rem;color:#94a3b8;margin-top:4px">Domain Fit</div>
+    <div style="margin-top:10px;height:5px;background:#e2e8f0;border-radius:99px;overflow:hidden">
+      <div style="width:87%;height:100%;background:linear-gradient(90deg,#0ea5e9,#2563eb);border-radius:99px"></div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div style="position:relative;z-index:2;text-align:center;padding:28px 60px 20px">
+    <div class="hero-badge">📊 Single Resume Analysis</div>
+    <div class="hero-title-primary">Deep dive into</div>
+    <div class="hero-title-secondary">every resume detail</div>
+    <p style="margin:0 auto;max-width:440px;font-size:0.95rem">Upload one resume to see a full breakdown of scores, domain fit, and extracted content.</p>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+else:
+    st.markdown("""
 <div class="page-hero">
   <div class="hero-badge">📊 Single Resume Analysis</div>
   <h1 class="gradient-text">Deep Dive</h1>

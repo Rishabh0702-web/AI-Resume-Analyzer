@@ -71,7 +71,52 @@ if results_exist and not st.session_state.analysis_done and not st.session_state
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO HEADER
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown("""
+_is_light = st.session_state.get("theme", "dark") == "light"
+
+if _is_light:
+    # ChronoTask-style: two-tone heading + floating mini-cards
+    st.markdown("""
+<div class="page-hero">
+  <!-- Floating mini-card: left -->
+  <div class="hero-float-card hero-float-left" style="max-width:200px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:1.2rem">📄</span>
+      <span style="font-weight:700;font-size:0.82rem;color:#0f172a">AI Resume Scoring</span>
+    </div>
+    <div style="font-size:0.72rem;color:#64748b;line-height:1.5">Semantic analysis &amp; instant ranking of all candidates</div>
+    <div style="margin-top:10px;height:4px;background:#e2e8f0;border-radius:99px;overflow:hidden">
+      <div style="width:78%;height:100%;background:#2563eb;border-radius:99px"></div>
+    </div>
+  </div>
+
+  <!-- Floating mini-card: right -->
+  <div class="hero-float-card hero-float-right" style="max-width:180px">
+    <div style="font-size:0.65rem;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Top Domains</div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.75rem;color:#0f172a;font-weight:500">
+        <span style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0"></span>Machine Learning
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.75rem;color:#0f172a;font-weight:500">
+        <span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;flex-shrink:0"></span>Web Development
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.75rem;color:#0f172a;font-weight:500">
+        <span style="width:8px;height:8px;border-radius:50%;background:#0ea5e9;flex-shrink:0"></span>Data Science
+      </div>
+    </div>
+  </div>
+
+  <!-- Main hero content (centered) -->
+  <div style="position:relative;z-index:2;text-align:center;padding:28px 60px 20px">
+    <div class="hero-badge">⬡ ResumeIQ · Dashboard</div>
+    <div class="hero-title-primary">Analyse, rank, and</div>
+    <div class="hero-title-secondary">hire smarter with AI</div>
+    <p style="margin:0 auto;max-width:460px;font-size:0.95rem">Upload a batch of resumes and get instant scoring, ranking, and domain classification powered by semantic AI.</p>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+else:
+    # Dark theme: original gradient heading
+    st.markdown("""
 <div class="page-hero">
   <div class="hero-badge">⬡ ResumeIQ · Dashboard</div>
   <h1 class="gradient-text">Resume Intelligence</h1>

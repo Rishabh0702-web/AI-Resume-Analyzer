@@ -60,186 +60,291 @@ def inject_styles() -> None:
     """
 
     light_vars = """
-    --bg:        #fff8f8;
+    --bg:        #f2f5fc;
     --surface:   #ffffff;
-    --surface2:  #fff0f0;
-    --surface3:  #ffe0e0;
-    --border:    rgba(200,0,0,0.15);
-    --border2:   rgba(200,0,0,0.3);
-    --accent:    #e01010;
-    --accent2:   #c40000;
-    --accent3:   #ff6b6b;
-    --text:      #1a0000;
-    --muted:     #8a2020;
-    --muted2:    #6b3030;
+    --surface2:  #f8faff;
+    --surface3:  #eef1f9;
+    --border:    rgba(0,0,0,0.06);
+    --border2:   rgba(0,0,0,0.11);
+    --accent:    #2563eb;
+    --accent2:   #7c3aed;
+    --accent3:   #0ea5e9;
+    --text:      #0f172a;
+    --muted:     #94a3b8;
+    --muted2:    #64748b;
     --ok:        #16a34a;
     --warn:      #d97706;
     --danger:    #dc2626;
-    --r:         6px;
-    --r-lg:      8px;
-    --shadow:    4px 4px 0px #c40000;
-    --shadow-lg: 6px 6px 0px #c40000;
-    --font-display: 'Bangers', cursive;
-    --font-body:    'DM Sans', sans-serif;
+    --r:         14px;
+    --r-lg:      22px;
+    --shadow:    0 4px 16px rgba(0,0,0,0.08),0 1px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.12),0 4px 16px rgba(0,0,0,0.06);
+    --font-display: 'Inter', sans-serif;
+    --font-body:    'Plus Jakarta Sans', sans-serif;
     --font-mono:    'DM Mono', monospace;
     """
 
     css_vars = light_vars if is_light else dark_vars
 
-    # ── LIGHT-ONLY OVERRIDES ────────────────────────────────────────────────
+    # ── LIGHT-ONLY OVERRIDES (ChronoTask style) ─────────────────────────────
     light_extra = """
-    /* Comic halftone background */
+    /* ── ChronoTask dot-grid background ── */
     .stApp::before {
-        background-image: radial-gradient(circle, rgba(220,0,0,0.07) 1px, transparent 1px) !important;
-        background-size: 18px 18px !important;
+        background-image: radial-gradient(circle, rgba(37,99,235,0.13) 1px, transparent 1px) !important;
+        background-size: 26px 26px !important;
     }
-    /* Comic headlines */
+
+    /* ── Typography: Inter heavy headings ── */
     h1, h2, h3, h4 {
-        font-family: 'Bangers', cursive !important;
-        letter-spacing: 0.06em !important;
-        color: #c40000 !important;
-        text-shadow: 2px 2px 0 rgba(180,0,0,0.12) !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 900 !important;
+        color: #0f172a !important;
+        letter-spacing: -0.03em !important;
+        text-shadow: none !important;
     }
     .gradient-text {
-        background: linear-gradient(135deg, #c40000 0%, #ff4444 50%, #ff9999 100%) !important;
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 60%, #0ea5e9 100%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         background-clip: text !important;
-        font-family: 'Bangers', cursive !important;
-        letter-spacing: 0.08em !important;
+        font-family: 'Inter', sans-serif !important;
+        letter-spacing: -0.03em !important;
     }
-    /* Comic card borders */
-    .card, .stat-card, .domain-card, .candidate-card {
-        border: 2.5px solid #c40000 !important;
-        box-shadow: 4px 4px 0 #c40000 !important;
-        border-radius: 6px !important;
-    }
-    .card:hover, .stat-card:hover, .domain-card:hover, .candidate-card:hover {
-        transform: translate(-2px, -2px) !important;
-        box-shadow: 6px 6px 0 #c40000 !important;
-    }
-    /* Comic buttons */
-    .stButton > button {
-        background: #c40000 !important;
-        color: white !important;
-        border: 2.5px solid #900 !important;
-        border-radius: 6px !important;
-        box-shadow: 3px 3px 0 #900 !important;
-        font-family: 'Bangers', cursive !important;
-        letter-spacing: 0.08em !important;
-        font-size: 1rem !important;
-    }
-    .stButton > button:hover {
-        transform: translate(-2px, -2px) !important;
-        box-shadow: 5px 5px 0 #900 !important;
-    }
-    .stButton > button:active {
-        transform: translate(2px, 2px) !important;
-        box-shadow: 1px 1px 0 #900 !important;
-    }
-    /* Download buttons */
-    [data-testid="stDownloadButton"] > button {
-        background: white !important;
-        color: #c40000 !important;
-        border: 2.5px solid #c40000 !important;
-        box-shadow: 3px 3px 0 #c40000 !important;
-    }
-    [data-testid="stDownloadButton"] > button:hover {
-        background: #fff0f0 !important;
-        transform: translate(-2px, -2px) !important;
-        box-shadow: 5px 5px 0 #c40000 !important;
-    }
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: #fff0f0 !important;
-        border-right: 3px solid #c40000 !important;
-    }
-    [data-testid="stSidebarNav"] a[aria-current="page"] {
-        background: rgba(196,0,0,0.1) !important;
-        color: #c40000 !important;
-        font-weight: 700 !important;
-        border-left: 3px solid #c40000 !important;
-        border-radius: 0 8px 8px 0 !important;
-    }
-    /* Hero panel */
+
+    /* ── Hero panel ── */
     .page-hero {
-        background: white !important;
-        border: 3px solid #c40000 !important;
-        box-shadow: 6px 6px 0 #c40000 !important;
-        border-radius: 8px !important;
+        background: #ffffff !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.09), 0 4px 16px rgba(0,0,0,0.05) !important;
+        position: relative;
+        overflow: visible !important;
     }
+    .page-hero::before {
+        background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%) !important;
+        top: -60px !important; right: -60px !important;
+        width: 280px !important; height: 280px !important;
+    }
+    .page-hero p { color: #64748b !important; }
+
+    /* Hero badge pill */
     .hero-badge {
-        background: #c40000 !important;
+        background: #dbeafe !important;
+        border: 1px solid rgba(37,99,235,0.2) !important;
+        color: #2563eb !important;
+        font-family: 'DM Mono', monospace !important;
+        border-radius: 99px !important;
+        font-size: 0.72rem !important;
+        letter-spacing: 0.06em !important;
+        padding: 5px 14px !important;
+    }
+
+    /* Two-tone hero headings */
+    .hero-title-primary {
+        font-family: 'Inter', sans-serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: #0f172a;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        margin: 0;
+    }
+    .hero-title-secondary {
+        font-family: 'Inter', sans-serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: #94a3b8;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        margin: 0 0 16px 0;
+    }
+
+    /* Floating decorative mini-cards */
+    .hero-float-card {
+        position: absolute;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 16px;
+        padding: 14px 18px;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.78rem;
+        color: #1e293b;
+        animation: floatCard 4s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 10;
+    }
+    .hero-float-left  { top: 16px; left: 12px; animation-delay: 0s; }
+    .hero-float-right { top: 12px; right: 12px; animation-delay: 1.5s; }
+
+    @keyframes floatCard {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33%  { transform: translateY(-7px) rotate(0.5deg); }
+        66%  { transform: translateY(-3px) rotate(-0.5deg); }
+    }
+
+    /* ── Cards: white + soft shadow (no bold comic border) ── */
+    .card, .stat-card, .domain-card, .candidate-card {
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04) !important;
+        border-radius: 16px !important;
+    }
+    .card:hover, .stat-card:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.11), 0 4px 12px rgba(0,0,0,0.06) !important;
+    }
+    .domain-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 16px 44px rgba(0,0,0,0.12) !important;
+    }
+    .candidate-card:hover {
+        transform: translateX(4px) !important;
+        border-color: #2563eb !important;
+        box-shadow: 0 8px 24px rgba(37,99,235,0.12) !important;
+    }
+
+    /* ── Buttons: solid blue (ChronoTask CTA style) ── */
+    .stButton > button {
+        background: #2563eb !important;
         color: white !important;
         border: none !important;
-        font-family: 'Bangers', cursive !important;
-        letter-spacing: 0.1em !important;
-        font-size: 0.85rem !important;
-        border-radius: 4px !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 16px rgba(37,99,235,0.35) !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
+        letter-spacing: 0.01em !important;
     }
-    /* Progress bar */
+    .stButton > button:hover {
+        background: #1d4ed8 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 24px rgba(37,99,235,0.45) !important;
+    }
+    .stButton > button:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.25) !important;
+    }
+
+    /* Download buttons */
+    [data-testid="stDownloadButton"] > button {
+        background: #ffffff !important;
+        border: 1.5px solid rgba(0,0,0,0.12) !important;
+        color: #2563eb !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    }
+    [data-testid="stDownloadButton"] > button:hover {
+        background: #dbeafe !important;
+        border-color: #2563eb !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(37,99,235,0.15) !important;
+    }
+
+    /* ── Sidebar ── */
+    [data-testid="stSidebar"] {
+        background: #ffffff !important;
+        border-right: 1px solid rgba(0,0,0,0.08) !important;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.05) !important;
+    }
+    [data-testid="stSidebar"] * { color: #1e293b !important; }
+    [data-testid="stSidebarNav"] a[aria-current="page"] {
+        background: #dbeafe !important;
+        color: #2563eb !important;
+        font-weight: 700 !important;
+        border-left: none !important;
+        border-radius: 10px !important;
+    }
+    [data-testid="stSidebarNav"] a:hover {
+        background: #f8faff !important;
+        color: #0f172a !important;
+    }
+
+    /* ── Progress bar ── */
     [data-testid="stProgressBar"] > div > div {
-        background: linear-gradient(90deg, #c40000, #ff4444) !important;
+        background: linear-gradient(90deg, #0ea5e9, #2563eb) !important;
     }
-    /* Chips */
-    .chip-teal   { background: rgba(196,0,0,0.07) !important; color: #c40000 !important; border-color: rgba(196,0,0,0.3) !important; }
-    .chip-indigo { background: rgba(196,0,0,0.12) !important; color: #900 !important; border-color: rgba(196,0,0,0.4) !important; }
-    .chip-pink   { background: rgba(255,100,100,0.1) !important; color: #cc0000 !important; border-color: rgba(255,100,100,0.3) !important; }
-    /* Score bar track */
-    .score-bar-track { background: #ffe0e0 !important; }
-    /* File uploader */
+
+    /* ── Chips: colorful pastel ── */
+    .chip-teal   { background: #f0fdf4 !important; color: #15803d !important; border-color: #bbf7d0 !important; }
+    .chip-indigo { background: #eef2ff !important; color: #4338ca !important; border-color: #c7d2fe !important; }
+    .chip-pink   { background: #fdf4ff !important; color: #a21caf !important; border-color: #f5d0fe !important; }
+    .chip-green  { background: #f0fdf4 !important; color: #16a34a !important; border-color: #bbf7d0 !important; }
+    .chip-warn   { background: #fffbeb !important; color: #d97706 !important; border-color: #fde68a !important; }
+    .chip-danger { background: #fef2f2 !important; color: #dc2626 !important; border-color: #fecaca !important; }
+
+    /* ── Score bar track ── */
+    .score-bar-track { background: #f1f5f9 !important; }
+
+    /* ── File uploader ── */
     [data-testid="stFileUploader"] {
-        background: white !important;
-        border: 2.5px dashed #c40000 !important;
+        background: #f8faff !important;
+        border: 2px dashed rgba(37,99,235,0.28) !important;
+        border-radius: 14px !important;
+    }
+    [data-testid="stFileUploader"]:hover {
+        border-color: rgba(37,99,235,0.55) !important;
+        background: rgba(37,99,235,0.03) !important;
     }
     [data-testid="stFileUploader"] label,
-    [data-testid="stFileUploader"] p { color: #8a2020 !important; }
-    /* Text area */
+    [data-testid="stFileUploader"] p { color: #64748b !important; }
+
+    /* ── Text area ── */
     [data-testid="stTextArea"] textarea {
-        background: white !important;
-        border: 2px solid #c40000 !important;
-        color: #1a0000 !important;
-        border-radius: 6px !important;
+        background: #ffffff !important;
+        border: 1.5px solid rgba(0,0,0,0.12) !important;
+        border-radius: 12px !important;
+        color: #0f172a !important;
     }
     [data-testid="stTextArea"] textarea:focus {
-        border-color: #900 !important;
-        box-shadow: 2px 2px 0 rgba(196,0,0,0.3) !important;
+        border-color: #2563eb !important;
+        box-shadow: 0 0 0 4px rgba(37,99,235,0.1) !important;
     }
-    /* Alert */
+
+    /* ── Alert ── */
     [data-testid="stAlert"] {
-        background: #fff0f0 !important;
-        border: 2px solid #c40000 !important;
-        color: #1a0000 !important;
+        background: #f8faff !important;
+        border: 1px solid rgba(0,0,0,0.09) !important;
+        border-radius: 12px !important;
+        color: #0f172a !important;
     }
-    /* Header */
+
+    /* ── Page header ── */
     header[data-testid="stHeader"] {
-        background: #fff0f0 !important;
-        border-bottom: 3px solid #c40000 !important;
+        background: rgba(242,245,252,0.85) !important;
+        border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+        backdrop-filter: blur(12px) !important;
     }
-    /* Section label */
-    .section-label { color: #c40000 !important; font-weight: 700 !important; }
-    .section-label::after { background: #c40000 !important; opacity: 0.25 !important; }
-    hr { border-color: #c40000 !important; border-style: dashed !important; }
-    /* Domain */
-    .domain-title { color: #c40000 !important; font-family: 'Bangers', cursive !important; letter-spacing: 0.06em !important; font-size: 1rem !important; }
-    .domain-item { color: #6b3030 !important; border-bottom-color: rgba(196,0,0,0.12) !important; }
-    /* Fit score badge */
-    .fit-score-badge { font-family: 'Bangers', cursive !important; letter-spacing: 0.05em !important; }
-    /* Dataframe */
-    [data-testid="stDataFrame"] th {
-        background: #fff0f0 !important;
-        color: #c40000 !important;
-        border-bottom: 2px solid #c40000 !important;
-    }
-    [data-testid="stDataFrame"] td { color: #1a0000 !important; border-bottom-color: rgba(196,0,0,0.1) !important; }
-    /* Caption */
-    [data-testid="stCaptionContainer"] { color: #8a2020 !important; }
-    /* Multiselect */
+
+    /* ── Section label ── */
+    .section-label { color: #94a3b8 !important; }
+    .section-label::after { background: rgba(0,0,0,0.1) !important; }
+    hr { border-color: rgba(0,0,0,0.08) !important; border-style: solid !important; }
+
+    /* ── Domain titles ── */
+    .domain-title { color: #0f172a !important; font-family: 'Inter', sans-serif !important; letter-spacing: -0.01em !important; font-size: 0.9rem !important; }
+    .domain-item  { color: #475569 !important; border-bottom-color: rgba(0,0,0,0.06) !important; }
+
+    /* ── Fit score badge ── */
+    .fit-score-badge { font-family: 'Inter', sans-serif !important; letter-spacing: -0.03em !important; }
+
+    /* ── Dataframe ── */
+    [data-testid="stDataFrame"] th { background: #f8faff !important; color: #94a3b8 !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important; }
+    [data-testid="stDataFrame"] td { color: #0f172a !important; border-bottom-color: rgba(0,0,0,0.05) !important; }
+
+    /* ── Caption ── */
+    [data-testid="stCaptionContainer"] { color: #94a3b8 !important; }
+
+    /* ── Multiselect tags ── */
     [data-testid="stMultiSelect"] span[data-baseweb="tag"] {
-        background: #c40000 !important;
+        background: #2563eb !important;
         color: white !important;
-        border-radius: 4px !important;
+        border-radius: 8px !important;
     }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     """ if is_light else ""
 
     # ── DARK-ONLY EXTRAS ────────────────────────────────────────────────────
@@ -258,7 +363,7 @@ def inject_styles() -> None:
     """ if not is_light else ""
 
     st.markdown(f"""
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Bangers&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Bangers&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
