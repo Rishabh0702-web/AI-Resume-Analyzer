@@ -34,14 +34,5 @@
     "achievements": "",
     "extras": "",
     "summary": "Sneha Iyer\nFrontend Developer | React | TypeScript\nsneha.iyer@dev.in (cid:127) +91-9090909090 (cid:127) Pune (cid:127) github.com/snehaiyer\nOBJECTIVE\nFrontend engineer with 3 years building performant, accessible React applications. Passionate about design\nsystems and Core Web Vitals optimisation."
-  },
-  "05_Rohit_Verma_DevOpsEngineer.pdf": {
-    "education": "B.E., Computer Science | Anna University | 2019 | 8.1 CGPA",
-    "skills": "(cid:127) AWS DevOps Professional (cid:127) CKA (Certified Kubernetes Admin)\nTerraform (cid:127) Ansible (cid:127) Helm (cid:127) Prometheus (cid:127) Grafana (cid:127) Python (cid:127) Bash",
-    "experience": "DevOps Lead \u2014 Zoho Corp (Apr 2021 \u2013 Present)\n(cid:127) Managed 200-node Kubernetes cluster across 3 AWS regions.\n(cid:127) Reduced infrastructure cost by 28% by right-sizing EC2 instances and using Spot.\n(cid:127) Built GitLab CI/CD pipelines reducing deployment time from 45 min to 8 min.\nDevOps Engineer \u2014 TCS (Jun 2019 \u2013 Mar 2021)\n(cid:127) Automated AMI baking with Packer and Ansible for 30+ microservices.\n(cid:127) Set up centralised logging with ELK stack handling 5GB logs/day.",
-    "projects": "",
-    "achievements": "",
-    "extras": "",
-    "summary": "Rohit Verma\nDevOps Engineer | AWS | Kubernetes | Terraform\nrohit.verma@cloud.in (cid:127) +91-9111222333 (cid:127) Chennai (cid:127) linkedin.com/in/rohitvermadevops\nPROFILE\nCloud-infrastructure specialist with 5 years automating CI/CD pipelines, managing Kubernetes clusters, and\nensuring 99.9% uptime for SaaS products."
   }
 }
