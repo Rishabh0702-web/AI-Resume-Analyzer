@@ -14,7 +14,7 @@ import pandas as pd
 st.set_page_config(
     page_title="ResumeIQ — Dashboard",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Path setup ────────────────────────────────────────────────────────────────
@@ -28,7 +28,7 @@ from backend.section_splitter import split_sections
 from backend.scorer import score_resume
 from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
 from backend.utils import sanitize_filename
-from frontend.styles import inject_styles, score_color, render_score_bar, render_chip
+from frontend.styles import inject_styles, score_color, render_score_bar, render_chip, render_top_nav
 
 RESUME_DIR = os.path.join(BASE_DIR, "resumes")
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
@@ -52,6 +52,64 @@ load_model()
 
 # ── Styles ────────────────────────────────────────────────────────────────────
 inject_styles()
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+    st.session_state.role = None
+
+if not st.session_state.logged_in:
+    _, col, _ = st.columns([1, 1.2, 1])
+    with col:
+        st.markdown("<h2 style='text-align:center; margin-top: 100px; font-weight:800; letter-spacing: 1px;'>DASHBOARD</h2>", unsafe_allow_html=True)
+        # Use HTML to center elements or native Streamlit widgets with proper spacing
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # A simple hack to center the selectbox natively
+        _, sel_col, _ = st.columns([1, 2, 1])
+        with sel_col:
+            role_selection = st.selectbox("Role", ["Select", "HR", "Student"], label_visibility="collapsed")
+            
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        user_col1, user_col2 = st.columns([1, 3])
+        with user_col1:
+            st.markdown("<div style='margin-top: 8px; font-weight: 600; font-size: 1.1rem;'>User id</div>", unsafe_allow_html=True)
+        with user_col2:
+            user_id = st.text_input("User id", label_visibility="collapsed")
+            
+        pass_col1, pass_col2 = st.columns([1, 3])
+        with pass_col1:
+            st.markdown("<div style='margin-top: 8px; font-weight: 600; font-size: 1.1rem;'>Password</div>", unsafe_allow_html=True)
+        with pass_col2:
+            password = st.text_input("Password", type="password", label_visibility="collapsed")
+            
+        st.markdown("<br>", unsafe_allow_html=True)
+        _, btn_col, _ = st.columns([1, 1.5, 1])
+        with btn_col:
+            if st.button("Login", use_container_width=True):
+                if user_id and password and role_selection != "Select":
+                    st.session_state.logged_in = True
+                    st.session_state.role = role_selection.lower().strip()
+                    if st.session_state.role == "student":
+                        st.switch_page("pages/1_Resume_Analysis.py")
+                    else:
+                        st.rerun()
+                elif role_selection == "Select":
+                    st.error("Please select a specific role.")
+                else:
+                    st.error("Please enter credentials.")
+                    
+    st.markdown("""
+    <style>
+    [data-testid="stSidebar"] { display: none !important; }
+    </style>
+    """, unsafe_allow_html=True)
+    st.stop()
+
+if st.session_state.role == "student":
+    st.switch_page("pages/1_Resume_Analysis.py")
+
+render_top_nav()
 
 # ── Session state ──────────────────────────────────────────────────────────────
 for key, val in [

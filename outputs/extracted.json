@@ -1,20 +1,47 @@
 {
-  "Apurv Verma Resume (1).pdf": {
-    "education": "",
-    "skills": "PATENT\nEye-Controlled Wheelchair System\nPublished: Apr 4, 2025 \u00b7 Pub. No. 202511025290\nCo-inventor of a gaze-controlled wheelchair enabling hands-free navigation with obstacle detection and emergency braking.\nUI/UX Skills: Wireframing, Prototyping, User Flows, Design Systems\nDesign Tools: Figma, Canva , Inkscape\nProgramming Languages: C/C++, Java, JavaScript, Python, C#, GDScript\nWeb Development: HTML, CSS, JavaScript, React.js\nOperating System: Linux\nProfessional Skills: Problem-Solving, Creativity, Communication, Teamwork\nBachelor of Technology in Computer Science and\nEngineering\nAttend cybersecurity and tech meetups to stay\nupdated on industry trends and network with\nSt.Peter\u2019s Inter College\nprofessionals.\nISC BOARD (class - XII)\nSt.Peter\u2019s Inter College\ntechnical knowledge and adapt to advancements in\nICSE BOARD (class - X)\nthe field.",
-    "experience": "BARTER NOW Jul 2025 - Present\nUI/UX Intern\nWorked with the founding team to design the website UI from scratch, creating wireframes and high-fidelity screens in\nFigma for key pages while maintaining brand consistency through reusable components, icons, and illustrations.\nSupported developers by providing organised assets and clear design guidelines for smooth implementation.",
-    "projects": "EYE TRACKING WHEEL CHAIR TECHNOLOGY\nDeveloped an innovative wheelchair prototype controlled by eye movements, featuring automatic obstacle detection for\nsafe navigation. The project was built using Arduino and Dlib libraries, allowing precise gazebased movement control\nand directional turns with motor adjustments.\nSHUFFLE- P2P RENTALS\nDeveloped a peer-to-peer rental platform that enables users to rent tools, electronics, and everyday items from locals,\nsolving high costs and trust issues in short-term usage. Designed a seamless rental flow with GPS-based item discovery,\nKYC verification, and secure in-app booking to ensure user safety and fast transactions.\nACHIVEMENTS\nNATIONAL INVOTRONICS HACKATHON\nSecured 1st Runner-Up as part of the Binary Busters team at the National Invotronics Hackathon organized by the CSSP\nClub at Amity University, showcasing expertise in innovative problem-solving and collaborative technical skills.\nHACK\u201924 IIIT DELHI\nSecured 4th place at Hack'24, a 24-hour hackathon organized by Odyssey IIIT Delhi, showcasing innovation and\nABES Engineering College (2024-2028)",
+  "01_Arjun_Mehta_SoftwareEngineer.pdf": {
+    "education": "B.Tech, Computer Science \u2014 IIT Bombay, 2018 | CGPA: 8.7/10",
+    "skills": "Languages: Java, Python, Go | Databases: PostgreSQL, Redis, MongoDB | Cloud: AWS, GCP | Tools:\nDocker, Kubernetes, Jenkins",
+    "experience": "Senior Software Engineer \u2014 Flipkart (Jan 2021 \u2013 Present)\n(cid:127) Designed microservices handling 2M+ daily transactions using Java Spring Boot and Kafka.\n(cid:127) Reduced API latency by 40% through Redis caching and query optimisation.\n(cid:127) Mentored 4 junior engineers and led quarterly code-review initiatives.\nSoftware Engineer \u2014 Infosys (Jun 2018 \u2013 Dec 2020)\n(cid:127) Built RESTful APIs for banking clients serving 500K users.\n(cid:127) Automated deployment pipelines with Jenkins and Docker, cutting release time by 60%.",
+    "projects": "",
+    "achievements": "(cid:127) AWS Certified Solutions Architect \u2013 Associate (2022)\n(cid:127) Google Cloud Professional Data Engineer (2023)",
+    "extras": "",
+    "summary": "Arjun Mehta\nSenior Software Engineer\narjun.mehta@email.com | +91-9876543210 | Bengaluru, Karnataka | linkedin.com/in/arjunmehta\nSUMMARY\nResults-driven software engineer with 6+ years of experience building scalable backend systems and\ncloud-native applications. Proficient in Java, Python, and distributed systems architecture."
+  },
+  "02_Priya_Nair_DataScientist.pdf": {
+    "education": "M.Tech, Data Science | IIT Hyderabad | 2020 | CGPA 9.1\nB.Sc, Statistics | University of Mumbai | 2018",
+    "skills": "Python (cid:127) PyTorch (cid:127) TensorFlow (cid:127) Scikit-learn\nSQL (cid:127) Spark (cid:127) Airflow (cid:127) MLflow\nAWS SageMaker (cid:127) Docker (cid:127) FastAPI (cid:127) Tableau\nPUBLICATIONS\n(cid:127) Attention Mechanisms for Clinical NLP \u2014 EMNLP 2022 Workshop",
+    "experience": "Data Scientist II | Meesho Mar 2022 \u2013 Present\n(cid:127) Built recommendation engine boosting CTR by 18% using collaborative filtering.\n(cid:127) Deployed real-time fraud detection model (XGBoost) serving 10K req/min on AWS SageMaker.\nJunior Data Scientist | Apollo Hospitals Jul 2020 \u2013 Feb 2022\n(cid:127) Developed patient readmission risk model with 87% AUC using LSTM networks.\n(cid:127) Created automated NLP pipeline for extracting diagnoses from clinical notes.",
+    "projects": "",
     "achievements": "",
     "extras": "",
-    "summary": "Apurv Verma\n+91 9555715961 \u00b7 apurv404@gmail.com \u00b7 LinkedIn- apurv404\nGhaziabad\nUI/UX & GRAPHIC DESIGN\nCreative and user-focused UI/UX and Graphic Designer with experience in designing web and mobile interfaces,\nbranding, and digital content. Skilled in transforming ideas into functional and visually appealing designs through user\nresearch, wireframing, prototyping, and visual storytelling. Strong ability to collaborate with cross-functional teams and\ndeliver impactful design solutions.\nKEY COMPETENCIES\nSystem Integration Adaptibility Project Management"
+    "summary": "Priya Nair\nData Scientist | ML Engineer\npriya.nair@email.com (cid:127) +91-9123456789 (cid:127) Hyderabad (cid:127) github.com/priyanair\nABOUT\nMachine learning practitioner with 4 years of experience delivering predictive models in e-commerce and\nhealthcare domains. Strong in Python, PyTorch, and MLOps."
   },
-  "Rishabh_Resume.pdf": {
-    "education": "ABES ENGINEERING COLLEGE Ghaziabad ,UP\nComputer Science B-Tech Sept 2024 - July 2028\nPt. Nagesh Dutt Public School Lalganj ,Pratapgarh UP\nDegree in 10th 2021 - 22\nEinstein Public School Lalganj ,Pratapgarh UP\nDegree in 12th 2023 - 24",
+  "03_Karan_Sharma_ProductManager.pdf": {
+    "education": "MBA, Strategy & Marketing | IIM Ahmedabad | 2017\nB.E., Mechanical Engineering | BITS Pilani | 2015",
+    "skills": "Product Strategy (cid:127) Roadmapping (cid:127) User Research (cid:127) SQL & Analytics (cid:127) Agile / Scrum (cid:127) Go-to-Market (cid:127)\nStakeholder Management",
+    "experience": "Senior Product Manager \u2014 CRED Aug 2020 \u2013 Present\n(cid:127) Launched CRED Pay feature \u2014 acquired 800K users in Q1, driving Rs 200Cr GMV.\n(cid:127) Ran 40+ A/B tests per quarter; improved activation funnel conversion by 22%.\n(cid:127) Defined product roadmap for Lending vertical in cross-functional team of 30.\nProduct Manager \u2014 Ola Jun 2017 \u2013 Jul 2020\n(cid:127) Owned driver-side app; reduced cancellation rate from 18% to 9%.\n(cid:127) Shipped real-time ETA accuracy feature reducing driver-user mismatch complaints by 35%.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Karan Sharma\nSenior Product Manager \u2014 Consumer Apps\nkaran.sharma@pm.com | +91-9988776655 | Mumbai | linkedin.com/in/karansharmapm\nSUMMARY\nStrategic PM with 7 years delivering 0fi1 and growth-stage products at B2C startups. Track record of 3x-ing\nDAU and reducing churn by 30% through data-driven product decisions."
+  },
+  "04_Sneha_Iyer_FrontendDeveloper.pdf": {
+    "education": "B.Tech, Information Technology | Pune University | 2020 | CGPA 8.4\nTECH STACK\nReact (cid:127) TypeScript (cid:127) Next.js (cid:127) Redux (cid:127) Tailwind CSS (cid:127) GraphQL (cid:127) Webpack (cid:127) Jest (cid:127) Figma (cid:127) Git",
     "skills": "",
-    "experience": "CodeChef ChapterABES ENG. CLG | Graphic Designer/UI-UX Designer 2024 - Present\nDesigned posters, banners, and social media creatives for technical events\nCreated UI screens and prototypes for club initiatives using Figma",
-    "projects": "IIITD-HackLLM | Link Python, PyTorch, Hugging Face Transformers, PEFT (LoRA), Quantization\n(4-bit), Google Colab, LLM Fine-Tuning\nFine-tuned a 7B instruction-tuned LLM on the MedQuAD dataset for medical question answering\nApplied LoRA with 4-bit quantization for memory-e(cid:30)cient GPU training\nImplemented custom scripts for data preparation, training, and inference\nE_Learning_SIH | Link Next.js, React, TypeScript, Tailwind CSS, Three.js, Framer Motion, Firebase\nAuth, MongoDB, Node.js, Zustand\nFull-stack gami(cid:28)ed learning platform with 3D UI, Firebase authentication, and MongoDB backend\nFocused on rural accessibility with low-bandwidth optimization and o(cid:31)ine support\nMedicare_Hospital | Link HTML, CSS, JavaScript, Firebase Authentication, Cloud Firestore, Google\nGemini API\nBuilt a hospital appointment system with Firebase authentication and real-time booking, viewing, and\ncancellation\nIntegrated a Google Geminipowered medical assistant for department suggestions and health queries",
-    "achievements": "(cid:136)\nMind the Gap 2.0 Bridging Design & Decentralization - GDG on Campus ABESEC!\n(cid:136)\nHACK LLM Hackathon - IIITD\n(cid:136)\nStartup Ideation & Business Strategy Challenge E-Cell - E-CELL ABESEC\n(cid:136)\nTop 5 in HackLLM Hackathon at IIITD\n(cid:136)\nSecured Top 3 position in a Startup Ideation & Pitching Challenge organized by E-Cell ABESEC",
-    "extras": "Libraries/Frameworks: Bootstrap, Tailwind\nTools / Platforms: Github, VS Code, IntelliJ, Figma, Canva\nDatabases: MongoDB, Firebase",
-    "summary": "Rishabh Gupta\nrishabh09454@gmail.com | +917905028145 | Crossing republik ghaziabad\nGitHub | Linkedin | LeetCode"
+    "experience": "Frontend Engineer \u2014 Razorpay (Jan 2022 \u2013 Present)\n(cid:127) Rebuilt checkout UI in React + TypeScript, improving LCP by 1.2s.\n(cid:127) Developed shared component library used across 5 product teams (50+ components).\n(cid:127) Integrated analytics SDK reducing event-tracking bugs by 70%.\nJunior Frontend Developer \u2014 Freshworks (Jul 2020 \u2013 Dec 2021)\n(cid:127) Built responsive admin dashboard with React and Material UI.\n(cid:127) Wrote unit and integration tests achieving 85% code coverage with Jest & RTL.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Sneha Iyer\nFrontend Developer | React | TypeScript\nsneha.iyer@dev.in (cid:127) +91-9090909090 (cid:127) Pune (cid:127) github.com/snehaiyer\nOBJECTIVE\nFrontend engineer with 3 years building performant, accessible React applications. Passionate about design\nsystems and Core Web Vitals optimisation."
+  },
+  "05_Rohit_Verma_DevOpsEngineer.pdf": {
+    "education": "B.E., Computer Science | Anna University | 2019 | 8.1 CGPA",
+    "skills": "(cid:127) AWS DevOps Professional (cid:127) CKA (Certified Kubernetes Admin)\nTerraform (cid:127) Ansible (cid:127) Helm (cid:127) Prometheus (cid:127) Grafana (cid:127) Python (cid:127) Bash",
+    "experience": "DevOps Lead \u2014 Zoho Corp (Apr 2021 \u2013 Present)\n(cid:127) Managed 200-node Kubernetes cluster across 3 AWS regions.\n(cid:127) Reduced infrastructure cost by 28% by right-sizing EC2 instances and using Spot.\n(cid:127) Built GitLab CI/CD pipelines reducing deployment time from 45 min to 8 min.\nDevOps Engineer \u2014 TCS (Jun 2019 \u2013 Mar 2021)\n(cid:127) Automated AMI baking with Packer and Ansible for 30+ microservices.\n(cid:127) Set up centralised logging with ELK stack handling 5GB logs/day.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Rohit Verma\nDevOps Engineer | AWS | Kubernetes | Terraform\nrohit.verma@cloud.in (cid:127) +91-9111222333 (cid:127) Chennai (cid:127) linkedin.com/in/rohitvermadevops\nPROFILE\nCloud-infrastructure specialist with 5 years automating CI/CD pipelines, managing Kubernetes clusters, and\nensuring 99.9% uptime for SaaS products."
   }
 }

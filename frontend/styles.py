@@ -558,3 +558,42 @@ def render_score_bar(label: str, value: float, max_val: float, color: str = "var
 
 def render_chip(text: str, style: str = "chip-teal") -> str:
     return f'<span class="chip {style}">{text}</span>'
+
+def render_top_nav() -> None:
+    """Renders a horizontal top navigation bar replacing the default sidebar."""
+    st.markdown("""
+<style>
+[data-testid="stSidebar"] { display: none !important; }
+[data-testid="stSidebarNavItems"] { display: none !important; }
+[data-testid="stSidebarNav"] { display: none !important; }
+</style>
+""", unsafe_allow_html=True)
+    
+    if not st.session_state.get("logged_in"):
+        return
+
+    # Check role
+    role = st.session_state.get("role", "hr")
+    
+    # Layout with logout button on the right
+    n_cols = st.columns([10, 2])
+    
+    with n_cols[0]:
+        if role == "student":
+            st.markdown("<div style='margin-bottom:8px'></div>", unsafe_allow_html=True)
+            c1, c2, c3 = st.columns([1, 2, 1])
+            with c2: st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
+        else:
+            c1, c2, c3, c4 = st.columns(4)
+            with c1: st.page_link("app.py", label="App Overview")
+            with c2: st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
+            with c3: st.page_link("pages/2_Best_Profile.py", label="Best Profiles")
+            with c4: st.page_link("pages/3_Compare_Resumes.py", label="Compare Resumes")
+            
+    with n_cols[1]:
+        if st.button("Log Out", use_container_width=True):
+            st.session_state["logged_in"] = False
+            st.session_state["role"] = None
+            st.switch_page("app.py")
+            
+    st.markdown("<hr style='margin-top: 10px; margin-bottom: 30px;'/>", unsafe_allow_html=True)

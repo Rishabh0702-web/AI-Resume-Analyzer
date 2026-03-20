@@ -1,9 +1,16 @@
 {
-  "Machine Learning": [],
+  "Machine Learning": [
+    "02_Priya_Nair_DataScientist.pdf"
+  ],
   "Data Science": [],
-  "Web Development": [],
-  "Cloud / DevOps": [],
+  "Web Development": [
+    "04_Sneha_Iyer_FrontendDeveloper.pdf"
+  ],
+  "Cloud / DevOps": [
+    "05_Rohit_Verma_DevOpsEngineer.pdf",
+    "01_Arjun_Mehta_SoftwareEngineer.pdf"
+  ],
   "Android Development": [
-    "Rishabh_Resume.pdf"
+    "04_Sneha_Iyer_FrontendDeveloper.pdf"
   ]
 }
