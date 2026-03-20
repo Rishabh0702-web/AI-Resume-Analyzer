@@ -17,8 +17,10 @@ from typing import Any
 
 try:
     from pymongo import MongoClient
+    import certifi
 except Exception:
     MongoClient = None
+    certifi = None
 
 
 def _read_dotenv_file() -> dict[str, str]:
@@ -87,7 +89,10 @@ elif not _uri:
     _last_error = "MONGODB_URI/MONGO_URI is not set"
 else:
     try:
-        client = MongoClient(_uri, serverSelectionTimeoutMS=5000)
+        _tls_kwargs = {}
+        if certifi is not None:
+            _tls_kwargs["tlsCAFile"] = certifi.where()
+        client = MongoClient(_uri, serverSelectionTimeoutMS=5000, **_tls_kwargs)
         # Fail fast so auth/network issues are visible at startup.
         client.admin.command("ping")
         db = client[_db_name]
