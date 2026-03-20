@@ -92,10 +92,27 @@ def show_customer_dashboard():
   greeting = "Good morning" if hour < 12 else ("Good afternoon" if hour < 17 else "Good evening")
 
   # ══════════════════════════════════════════════════════════════════════════
+  # NOTIFICATIONS
+  # ══════════════════════════════════════════════════════════════════════════
+  n_col1, n_col2 = st.columns([9, 2])
+  with n_col2:
+    with st.popover("Notifications", use_container_width=True):
+      st.markdown("""
+<div style="font-size: 0.9rem; color: var(--text); padding: 4px;">
+  <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">notification 1</div>
+  <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">notification 2</div>
+  <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">notification 3</div>
+  <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">notification 4</div>
+  <div style="padding: 8px 0; border-bottom: 1px solid var(--border);">notification 5</div>
+  <div style="padding: 8px 0;">notification 6</div>
+</div>
+""", unsafe_allow_html=True)
+
+  # ══════════════════════════════════════════════════════════════════════════
   # HERO — personalised, simple
   # ══════════════════════════════════════════════════════════════════════════
   st.markdown(f"""
-<div class="page-hero">
+<div class="page-hero" style="margin-top:-20px;">
  <div class="hero-badge">Resume Analysis</div>
  <h1>{greeting}, {display_name}</h1>
  <p>Upload your resume for an instant AI-powered score, skills analysis, and personalised improvement tips.</p>

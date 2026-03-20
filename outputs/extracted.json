@@ -1,4 +1,13 @@
 {
+  "01_Arjun_Mehta_SoftwareEngineer.pdf": {
+    "education": "B.Tech, Computer Science \u2014 IIT Bombay, 2018 | CGPA: 8.7/10",
+    "skills": "Languages: Java, Python, Go | Databases: PostgreSQL, Redis, MongoDB | Cloud: AWS, GCP | Tools:\nDocker, Kubernetes, Jenkins",
+    "experience": "Senior Software Engineer \u2014 Flipkart (Jan 2021 \u2013 Present)\n(cid:127) Designed microservices handling 2M+ daily transactions using Java Spring Boot and Kafka.\n(cid:127) Reduced API latency by 40% through Redis caching and query optimisation.\n(cid:127) Mentored 4 junior engineers and led quarterly code-review initiatives.\nSoftware Engineer \u2014 Infosys (Jun 2018 \u2013 Dec 2020)\n(cid:127) Built RESTful APIs for banking clients serving 500K users.\n(cid:127) Automated deployment pipelines with Jenkins and Docker, cutting release time by 60%.",
+    "projects": "",
+    "achievements": "(cid:127) AWS Certified Solutions Architect \u2013 Associate (2022)\n(cid:127) Google Cloud Professional Data Engineer (2023)",
+    "extras": "",
+    "summary": "Arjun Mehta\nSenior Software Engineer\narjun.mehta@email.com | +91-9876543210 | Bengaluru, Karnataka | linkedin.com/in/arjunmehta\nSUMMARY\nResults-driven software engineer with 6+ years of experience building scalable backend systems and\ncloud-native applications. Proficient in Java, Python, and distributed systems architecture."
+  },
   "02_Priya_Nair_DataScientist.pdf": {
     "education": "M.Tech, Data Science | IIT Hyderabad | 2020 | CGPA 9.1\nB.Sc, Statistics | University of Mumbai | 2018",
     "skills": "Python (cid:127) PyTorch (cid:127) TensorFlow (cid:127) Scikit-learn\nSQL (cid:127) Spark (cid:127) Airflow (cid:127) MLflow\nAWS SageMaker (cid:127) Docker (cid:127) FastAPI (cid:127) Tableau\nPUBLICATIONS\n(cid:127) Attention Mechanisms for Clinical NLP \u2014 EMNLP 2022 Workshop",
@@ -7,5 +16,23 @@
     "achievements": "",
     "extras": "",
     "summary": "Priya Nair\nData Scientist | ML Engineer\npriya.nair@email.com (cid:127) +91-9123456789 (cid:127) Hyderabad (cid:127) github.com/priyanair\nABOUT\nMachine learning practitioner with 4 years of experience delivering predictive models in e-commerce and\nhealthcare domains. Strong in Python, PyTorch, and MLOps."
+  },
+  "03_Karan_Sharma_ProductManager.pdf": {
+    "education": "MBA, Strategy & Marketing | IIM Ahmedabad | 2017\nB.E., Mechanical Engineering | BITS Pilani | 2015",
+    "skills": "Product Strategy (cid:127) Roadmapping (cid:127) User Research (cid:127) SQL & Analytics (cid:127) Agile / Scrum (cid:127) Go-to-Market (cid:127)\nStakeholder Management",
+    "experience": "Senior Product Manager \u2014 CRED Aug 2020 \u2013 Present\n(cid:127) Launched CRED Pay feature \u2014 acquired 800K users in Q1, driving Rs 200Cr GMV.\n(cid:127) Ran 40+ A/B tests per quarter; improved activation funnel conversion by 22%.\n(cid:127) Defined product roadmap for Lending vertical in cross-functional team of 30.\nProduct Manager \u2014 Ola Jun 2017 \u2013 Jul 2020\n(cid:127) Owned driver-side app; reduced cancellation rate from 18% to 9%.\n(cid:127) Shipped real-time ETA accuracy feature reducing driver-user mismatch complaints by 35%.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Karan Sharma\nSenior Product Manager \u2014 Consumer Apps\nkaran.sharma@pm.com | +91-9988776655 | Mumbai | linkedin.com/in/karansharmapm\nSUMMARY\nStrategic PM with 7 years delivering 0fi1 and growth-stage products at B2C startups. Track record of 3x-ing\nDAU and reducing churn by 30% through data-driven product decisions."
+  },
+  "04_Sneha_Iyer_FrontendDeveloper.pdf": {
+    "education": "B.Tech, Information Technology | Pune University | 2020 | CGPA 8.4\nTECH STACK\nReact (cid:127) TypeScript (cid:127) Next.js (cid:127) Redux (cid:127) Tailwind CSS (cid:127) GraphQL (cid:127) Webpack (cid:127) Jest (cid:127) Figma (cid:127) Git",
+    "skills": "",
+    "experience": "Frontend Engineer \u2014 Razorpay (Jan 2022 \u2013 Present)\n(cid:127) Rebuilt checkout UI in React + TypeScript, improving LCP by 1.2s.\n(cid:127) Developed shared component library used across 5 product teams (50+ components).\n(cid:127) Integrated analytics SDK reducing event-tracking bugs by 70%.\nJunior Frontend Developer \u2014 Freshworks (Jul 2020 \u2013 Dec 2021)\n(cid:127) Built responsive admin dashboard with React and Material UI.\n(cid:127) Wrote unit and integration tests achieving 85% code coverage with Jest & RTL.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Sneha Iyer\nFrontend Developer | React | TypeScript\nsneha.iyer@dev.in (cid:127) +91-9090909090 (cid:127) Pune (cid:127) github.com/snehaiyer\nOBJECTIVE\nFrontend engineer with 3 years building performant, accessible React applications. Passionate about design\nsystems and Core Web Vitals optimisation."
   }
 }

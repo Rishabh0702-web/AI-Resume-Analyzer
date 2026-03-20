@@ -123,6 +123,19 @@ _view = "HR (Admin)" if st.session_state["role"] == "admin" else "Customer"
 # If logged in, add logout button to sidebar
 with st.sidebar:
   st.markdown("---")
+  if st.session_state.get("role") == "customer":
+    st.markdown("""
+<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px;">
+ <div style="width:72px; height:72px; border-radius:50%; background:var(--surface2); border:2px solid var(--primary); display:flex; justify-content:center; align-items:center; margin-bottom:12px;">
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:36px; height:36px; color:var(--text);">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  </svg>
+ </div>
+ <div style="font-weight:700; font-size:1.05rem; color:var(--text);">Student Profile</div>
+ <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">View / Edit</div>
+</div>
+""", unsafe_allow_html=True)
+
   st.markdown(f"**Current Role:** {'HR (Admin)' if st.session_state['role'] == 'admin' else 'Student (Customer)'}")
   if st.button("Log Out", use_container_width=True):
     st.session_state["logged_in"] = False

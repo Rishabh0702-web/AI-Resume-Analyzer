@@ -3,7 +3,13 @@
     "02_Priya_Nair_DataScientist.pdf"
   ],
   "Data Science": [],
-  "Web Development": [],
-  "Cloud / DevOps": [],
-  "Android Development": []
+  "Web Development": [
+    "04_Sneha_Iyer_FrontendDeveloper.pdf"
+  ],
+  "Cloud / DevOps": [
+    "01_Arjun_Mehta_SoftwareEngineer.pdf"
+  ],
+  "Android Development": [
+    "04_Sneha_Iyer_FrontendDeveloper.pdf"
+  ]
 }
