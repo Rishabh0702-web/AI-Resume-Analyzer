@@ -1,6 +1,6 @@
 """
 frontend/app.py — Main page: bulk upload, analysis, ranking, domain classification.
-Full UI/UX redesign applied on top of all previous bug fixes.
+Premium SaaS UI redesign — clean, intentional, human-designed.
 """
 
 import streamlit as st
@@ -36,11 +36,11 @@ os.makedirs(RESUME_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 DOMAIN_COLORS = {
-    "Machine Learning":    ("#818cf8", "chip-indigo"),
-    "Data Science":        ("#22d3ee", "chip-teal"),
+    "Machine Learning":    ("#4f8ff7", "chip-teal"),
+    "Data Science":        ("#a78bfa", "chip-indigo"),
     "Web Development":     ("#4ade80", "chip-green"),
-    "Cloud / DevOps":      ("#fb923c", "chip-warn"),
-    "Android Development": ("#f87171", "chip-danger"),
+    "Cloud / DevOps":      ("#e5a63e", "chip-warn"),
+    "Android Development": ("#f472b6", "chip-pink"),
 }
 
 # ── Cache model ───────────────────────────────────────────────────────────────
@@ -76,9 +76,9 @@ if results_exist and not st.session_state.analysis_done:
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="page-hero">
-  <div class="hero-badge">⬡ ResumeIQ · Dashboard</div>
-  <h1 class="gradient-text">Resume Intelligence</h1>
-  <p>Upload a batch of resumes and get instant scoring, ranking, and domain classification powered by semantic AI.</p>
+  <div class="hero-badge">ResumeIQ</div>
+  <h1>Resume Intelligence</h1>
+  <p>Upload resumes for instant scoring, ranking, and domain classification powered by semantic AI.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -89,7 +89,7 @@ st.markdown('<div class="section-label">Upload</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="card">
-  <div class="card-title">📤 Upload Resumes</div>
+  <div class="card-title">Upload Resumes</div>
   <div class="card-sub">PDF · DOCX · TXT &nbsp;·&nbsp; Multiple files supported</div>
 </div>
 """, unsafe_allow_html=True)
@@ -101,11 +101,11 @@ uploaded_files = st.file_uploader(
     help="Supported: PDF, DOCX, TXT. Max 10 MB per file.",
 )
 
-# Show database status so Atlas issues are visible to the user.
+# Show database status
 db_status = get_database_status()
 if db_status["connected"]:
     st.caption(
-        f"Database connected: {db_status['db_name']}.{db_status['collection_name']}"
+        f"✓ Connected: {db_status['db_name']}.{db_status['collection_name']}"
     )
 else:
     st.warning(
@@ -116,16 +116,15 @@ else:
 # ── Analyse button + re-run guard ─────────────────────────────────────────────
 btn_col, info_col = st.columns([1, 4])
 with btn_col:
-    analyze = st.button("🚀 Analyse Resumes", use_container_width=True)
+    analyze = st.button("Analyse Resumes", use_container_width=True)
 
 if analyze and results_exist and not st.session_state.overwrite_confirmed:
     with info_col:
-        st.warning("⚠️ Previous results exist. Click **Analyse** again to overwrite them.")
+        st.warning("Previous results exist. Click **Analyse** again to overwrite them.")
     st.session_state.overwrite_confirmed = True
     st.stop()
 
 if analyze:
-    # Reset confirmation once user has confirmed and run proceeds.
     st.session_state.overwrite_confirmed = False
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -154,11 +153,7 @@ if analyze and not st.session_state.analysis_running:
         pct  = int((idx / total) * 100)
         safe_name = sanitize_filename(file.name)
         progress.progress(pct, text=f"Analysing {safe_name} ({idx}/{total})…")
-        status.markdown(
-            f'<p style="color:var(--muted2);font-family:\'DM Mono\',monospace;font-size:0.8rem;">'
-            f'🔍 {safe_name}</p>',
-            unsafe_allow_html=True,
-        )
+        status.caption(f"Processing {safe_name}…")
 
         path = os.path.join(RESUME_DIR, safe_name)
         with open(path, "wb") as f:
@@ -172,14 +167,12 @@ if analyze and not st.session_state.analysis_running:
         results.append({"resume": safe_name, "score": score, "sections": sections})
         extracted_data[safe_name] = sections
 
-        # Persist each analyzed resume; ignore DB failures so UI flow continues.
         data = {
             "resume_name": safe_name,
             "score": score,
             "sections": sections,
         }
         save_result(data)
-
 
     # Save outputs
     ranking_df = pd.DataFrame(
@@ -197,7 +190,6 @@ if analyze and not st.session_state.analysis_running:
     with open(domains_path, "w") as f:
         json.dump(domain_groups, f, indent=2)
 
-    # Cleanup temp files
     for p in saved_paths:
         try:
             os.remove(p)
@@ -206,7 +198,7 @@ if analyze and not st.session_state.analysis_running:
 
     st.session_state.analysis_running = False
     st.session_state.analysis_done    = True
-    progress.progress(100, text="✅ Analysis complete!")
+    progress.progress(100, text="Analysis complete.")
     status.empty()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -230,7 +222,7 @@ if st.session_state.analysis_done:
     c1, c2, c3, c4 = st.columns(4)
     cards = [
         (c1, "Resumes Analysed", str(total_resumes), "var(--accent)",  ""),
-        (c2, "Avg. Score",       f"{avg_score}",     "var(--accent2)", "/ 65"),
+        (c2, "Avg. Score",       f"{avg_score}",     "var(--purple)",  "/ 65"),
         (c3, "Top Score",        f"{top_score}",     "var(--ok)",      "/ 65"),
         (c4, "Domains Detected", str(domain_hits),   "var(--warn)",    f"/ {len(domain_groups)}"),
     ]
@@ -239,13 +231,12 @@ if st.session_state.analysis_done:
             st.markdown(f"""
 <div class="stat-card">
   <div class="stat-card-label">{label}</div>
-  <div class="stat-card-value" style="color:{color}">{val}<span style="font-size:1rem;color:var(--muted)">{suffix}</span></div>
+  <div class="stat-card-value" style="color:{color}">{val}<span style="font-size:0.85rem;color:var(--muted);margin-left:4px;font-weight:400">{suffix}</span></div>
 </div>""", unsafe_allow_html=True)
 
     # ── Ranked table ───────────────────────────────────────────────────────────
     st.markdown('<div class="section-label">Rankings</div>', unsafe_allow_html=True)
 
-    # Build a rich HTML table instead of plain st.dataframe
     rows_html = ""
     for rank, (_, row) in enumerate(ranking_df.iterrows(), start=1):
         name  = row["Resume"]
@@ -253,30 +244,32 @@ if st.session_state.analysis_done:
         color = score_color(score)
         pct   = min(100, round(score / 65 * 100))
         medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(rank, f"#{rank}")
+
         rows_html += f"""
-<div style="display:grid;grid-template-columns:40px 1fr 200px 80px;align-items:center;
-            gap:16px;padding:12px 20px;border-bottom:1px solid var(--border);
-            transition:background 0.15s;font-size:0.85rem;"
+<div style="display:grid;grid-template-columns:44px 1fr 200px 72px;align-items:center;
+            gap:14px;padding:12px 20px;
+            border-bottom:1px solid var(--border);
+            transition:background 0.15s ease;font-size:0.85rem;"
      onmouseover="this.style.background='var(--surface2)'"
      onmouseout="this.style.background='transparent'">
-  <div style="font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--muted)">{medal}</div>
-  <div style="font-weight:500;color:var(--text);font-family:'DM Sans',sans-serif">{name}</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted)">{medal}</div>
+  <div style="font-weight:600;color:var(--text)">{name}</div>
   <div>
-    <div style="height:4px;background:var(--surface3);border-radius:99px;overflow:hidden">
-      <div style="width:{pct}%;height:100%;background:{color};border-radius:99px"></div>
+    <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden">
+      <div style="width:{pct}%;height:100%;background:{color};border-radius:4px;transition:width 0.6s ease"></div>
     </div>
   </div>
-  <div style="font-family:'DM Mono',monospace;font-size:0.82rem;color:{color};text-align:right;font-weight:500">{score}</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:{color};text-align:right;font-weight:600">{score}</div>
 </div>"""
 
     st.markdown(f"""
 <div class="card" style="padding:0;overflow:hidden">
-  <div style="display:grid;grid-template-columns:40px 1fr 200px 80px;gap:16px;
-              padding:10px 20px;border-bottom:1px solid var(--border2)">
-    <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">#</div>
-    <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Resume</div>
-    <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Score Bar</div>
-    <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;text-align:right">Score</div>
+  <div style="display:grid;grid-template-columns:44px 1fr 200px 72px;gap:14px;
+              padding:10px 20px;border-bottom:1px solid var(--border2);background:var(--surface2)">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">#</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Resume</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Score</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;text-align:right">Value</div>
   </div>
   {rows_html}
 </div>""", unsafe_allow_html=True)
@@ -285,7 +278,7 @@ if st.session_state.analysis_done:
     dl1, dl2, _ = st.columns([1, 1, 3])
     with dl1:
         st.download_button(
-            "⬇️ Download CSV",
+            "Download CSV",
             data=open(ranking_path, "rb").read(),
             file_name="ranking.csv",
             mime="text/csv",
@@ -294,7 +287,7 @@ if st.session_state.analysis_done:
     with dl2:
         if os.path.exists(domains_path):
             st.download_button(
-                "⬇️ Download JSON",
+                "Download JSON",
                 data=open(domains_path, "rb").read(),
                 file_name="domains.json",
                 mime="application/json",
@@ -306,12 +299,13 @@ if st.session_state.analysis_done:
 
     st.markdown('<div class="domain-grid">', unsafe_allow_html=True)
     for domain, resumes in domain_groups.items():
-        accent_color, chip_cls = DOMAIN_COLORS.get(domain, ("#818cf8", "chip-indigo"))
+        accent_color, chip_cls = DOMAIN_COLORS.get(domain, ("#4f8ff7", "chip-teal"))
 
         if resumes:
             items_html = "".join(
                 f'<div class="domain-item">'
-                f'<span style="width:6px;height:6px;border-radius:50%;background:{accent_color};display:inline-block;flex-shrink:0"></span>'
+                f'<span style="width:5px;height:5px;border-radius:50%;background:{accent_color};'
+                f'display:inline-block;flex-shrink:0"></span>'
                 f'{r}</div>'
                 for r in resumes
             )
@@ -319,7 +313,7 @@ if st.session_state.analysis_done:
             items_html = '<div class="domain-empty">No matches found</div>'
 
         st.markdown(f"""
-<div class="domain-card" style="border-top:3px solid {accent_color}">
+<div class="domain-card" style="border-top:2px solid {accent_color}">
   <div class="domain-title">{domain}</div>
   {items_html}
   <div style="margin-top:10px">

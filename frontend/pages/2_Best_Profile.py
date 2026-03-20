@@ -1,6 +1,6 @@
 """
 frontend/pages/2_Best_Profile.py — Semantic job-role matching.
-Full UI/UX redesign on top of all previous bug fixes.
+Premium SaaS UI — clean, no neon or glassmorphism.
 """
 
 import streamlit as st
@@ -33,9 +33,9 @@ load_model()
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="page-hero">
-  <div class="hero-badge">🎯 Best Profile Fit</div>
-  <h1 class="gradient-text">Find Your Best Match</h1>
-  <p>Describe a role and our semantic engine will rank your uploaded candidates by fit — combining resume score with AI similarity.</p>
+  <div class="hero-badge">Best Profile Fit</div>
+  <h1>Find Your Best Match</h1>
+  <p>Describe a role and our semantic engine will rank candidates by fit — combining resume score with AI similarity.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -44,8 +44,8 @@ st.markdown("""
 # ══════════════════════════════════════════════════════════════════════════════
 if st.session_state.get("analysis_running", False):
     st.markdown("""
-<div class="card" style="border-color:rgba(251,146,60,0.3);background:rgba(251,146,60,0.05)">
-  <div class="card-title">⏳ Analysis In Progress</div>
+<div class="card" style="border-left:3px solid var(--warn)">
+  <div class="card-title">Analysis In Progress</div>
   <div style="color:var(--muted2);font-size:0.85rem;margin-top:4px">
     The bulk analysis is still running on the Dashboard. Please wait for it to finish.
   </div>
@@ -58,13 +58,13 @@ extracted_path = os.path.join(OUTPUT_DIR, "extracted.json")
 if not os.path.exists(ranking_path) or not os.path.exists(extracted_path):
     st.markdown("""
 <div class="card" style="text-align:center;padding:40px;border-style:dashed">
-  <div style="font-size:2.5rem;margin-bottom:12px">🔍</div>
+  <div style="font-size:2rem;margin-bottom:12px">🔍</div>
   <div class="card-title">No analysis results yet</div>
-  <div style="color:var(--muted2);font-size:0.85rem;margin-top:4px;margin-bottom:20px">
+  <div style="color:var(--muted2);font-size:0.85rem;margin-top:4px;margin-bottom:16px">
     Upload and analyse a batch of resumes on the Dashboard first.
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("app.py", label="Go to Dashboard ->")
+    st.page_link("app.py", label="Go to Dashboard →")
     st.stop()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -85,12 +85,12 @@ st.markdown('<div class="section-label">Search</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="card">
-  <div class="card-title">🔎 Describe the Role</div>
+  <div class="card-title">Describe the Role</div>
   <div class="card-sub" style="margin-bottom:14px">The more specific, the better the matches</div>
-  <div style="background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.15);
-              border-radius:10px;padding:12px 16px;font-size:0.82rem;color:var(--muted2);margin-bottom:16px">
-    💡 <b style="color:var(--text)">Tip:</b> Include skills, tools, experience level, and role type.
-    E.g. <i>"Senior ML engineer with PyTorch, BERT fine-tuning, and 3+ years NLP experience"</i>
+  <div style="background:var(--surface2);border:1px solid var(--border);
+              border-radius:10px;padding:12px 16px;font-size:0.82rem;color:var(--muted2)">
+    <strong style="color:var(--text)">Tip:</strong> Include skills, tools, experience level, and role type.
+    E.g. <em>"Senior ML engineer with PyTorch, BERT fine-tuning, and 3+ years NLP experience"</em>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -134,7 +134,7 @@ with col_slider:
     )
 with col_btn:
     st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
-    find = st.button("🔍 Find Best Fit", use_container_width=True)
+    find = st.button("Find Best Fit", use_container_width=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # MATCHING + RESULTS
@@ -162,13 +162,10 @@ if find:
 
     st.markdown('<div class="section-label">Results</div>', unsafe_allow_html=True)
 
-    # Results header
     st.markdown(f"""
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-  <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem">
-    Top {len(matches)} Matches
-  </div>
-  <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted)">
+  <div style="font-weight:700;font-size:1.05rem">Top {len(matches)} Matches</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted)">
     Sorted by Overall Fit Score
   </div>
 </div>""", unsafe_allow_html=True)
@@ -183,7 +180,7 @@ if find:
         fit_col    = score_color(fit_score, max_score=100)
         medal      = {1: "🥇", 2: "🥈", 3: "🥉"}.get(rank, f"#{rank}")
 
-        # Status chip based on fit
+        # Status chip
         if fit_score >= 65:
             status_chip = render_chip("Strong Match", "chip-green")
         elif fit_score >= 45:
@@ -193,45 +190,41 @@ if find:
         else:
             status_chip = render_chip("Low Match", "chip-danger")
 
-        st.markdown(f"""
-<div class="candidate-card" style="animation-delay:{rank * 0.06}s">
-  <div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <span style="font-size:1.1rem">{medal}</span>
-      <div class="candidate-card-name">{resume_name}</div>
-      {status_chip}
-    </div>
-    <div class="candidate-card-meta" style="margin-bottom:12px">
-      Semantic similarity · Resume score · Combined fit
-    </div>
+        # --- Candidate card: use columns to avoid deep HTML nesting ---
+        left_col, right_col = st.columns([4, 1])
 
-    <!-- Semantic match bar -->
-    <div style="margin-bottom:8px">
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px">
-        <span style="color:var(--muted2)">Semantic Match</span>
-        <span style="font-family:'DM Mono',monospace;color:var(--accent2)">{sem_pct}%</span>
-      </div>
-      <div style="height:4px;background:var(--surface3);border-radius:99px;overflow:hidden">
-        <div style="width:{sem_pct}%;height:100%;background:var(--accent2);border-radius:99px"></div>
-      </div>
-    </div>
+        with left_col:
+            st.markdown(f"""<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+  <span style="font-size:1.1rem">{medal}</span>
+  <div class="candidate-card-name">{resume_name}</div>
+  {status_chip}
+</div>
+<div class="candidate-card-meta" style="margin-bottom:12px">
+  Semantic similarity · Resume score · Combined fit
+</div>""", unsafe_allow_html=True)
 
-    <!-- Resume score bar -->
-    <div>
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px">
-        <span style="color:var(--muted2)">Resume Score</span>
-        <span style="font-family:'DM Mono',monospace;color:var(--accent)">{base_score} / 65</span>
-      </div>
-      <div style="height:4px;background:var(--surface3);border-radius:99px;overflow:hidden">
-        <div style="width:{res_pct}%;height:100%;background:var(--accent);border-radius:99px"></div>
-      </div>
-    </div>
+            st.markdown(f"""<div style="margin-bottom:8px">
+  <div style="display:flex;justify-content:space-between;font-size:0.74rem;margin-bottom:4px">
+    <span style="color:var(--muted2)">Semantic Match</span>
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--purple)">{sem_pct}%</span>
   </div>
-
-  <!-- Fit score badge -->
-  <div style="text-align:center;padding:16px 20px;background:var(--surface3);
-              border-radius:12px;border:1px solid var(--border2);min-width:90px">
-    <div class="fit-score-badge" style="color:{fit_col}">{fit_score}</div>
-    <div class="fit-score-label">Fit Score</div>
+  <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden">
+    <div style="width:{sem_pct}%;height:100%;background:var(--purple);border-radius:4px"></div>
   </div>
+</div>""", unsafe_allow_html=True)
+
+            st.markdown(f"""<div>
+  <div style="display:flex;justify-content:space-between;font-size:0.74rem;margin-bottom:4px">
+    <span style="color:var(--muted2)">Resume Score</span>
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--accent)">{base_score} / 65</span>
+  </div>
+  <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden">
+    <div style="width:{res_pct}%;height:100%;background:var(--accent);border-radius:4px"></div>
+  </div>
+</div>""", unsafe_allow_html=True)
+
+        with right_col:
+            st.markdown(f"""<div style="text-align:center;padding:18px 22px;background:var(--surface2);border-radius:12px;border:1px solid var(--border);min-width:90px">
+  <div class="fit-score-badge" style="color:{fit_col}">{fit_score}</div>
+  <div class="fit-score-label">Fit Score</div>
 </div>""", unsafe_allow_html=True)

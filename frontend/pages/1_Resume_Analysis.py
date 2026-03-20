@@ -1,6 +1,6 @@
 """
 frontend/pages/1_Resume_Analysis.py — Single resume deep-dive.
-Full UI/UX redesign on top of all previous bug fixes.
+Premium SaaS UI — clean, no neon or glassmorphism.
 """
 
 import re
@@ -35,8 +35,8 @@ load_model()
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="page-hero">
-  <div class="hero-badge">📊 Single Resume Analysis</div>
-  <h1 class="gradient-text">Deep Dive</h1>
+  <div class="hero-badge">Resume Analysis</div>
+  <h1>Deep Dive</h1>
   <p>Upload one resume to see a full breakdown of scores, domain fit, and extracted content.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -56,7 +56,7 @@ uploaded_file = st.file_uploader(
 if not uploaded_file:
     st.markdown("""
 <div class="card" style="text-align:center;padding:40px;border-style:dashed">
-  <div style="font-size:2.5rem;margin-bottom:12px">📄</div>
+  <div style="font-size:2rem;margin-bottom:12px">📄</div>
   <div class="card-title">No resume uploaded yet</div>
   <div style="color:var(--muted2);font-size:0.85rem;margin-top:4px">Upload a PDF, DOCX, or TXT file to begin analysis.</div>
 </div>""", unsafe_allow_html=True)
@@ -97,42 +97,36 @@ primary_conf      = domain_scores[primary_domain]
 score_col         = score_color(total_score)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SUMMARY HERO CARD
+# SUMMARY CARD
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown('<div class="section-label">Summary</div>', unsafe_allow_html=True)
 
 pct_overall = min(100, round(total_score / 65 * 100))
-st.markdown(f"""
-<div class="card" style="background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);
-     border-color:var(--border2);padding:28px 32px">
-  <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center">
-    <div>
-      <div class="card-sub" style="margin-bottom:8px">📄 {safe_name}</div>
-      <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;
-                  color:var(--text);margin-bottom:6px">
-        Overall Score: <span style="color:{score_col}">{total_score}</span>
-        <span style="font-size:1rem;color:var(--muted)"> / 65</span>
-      </div>
-      <div style="color:var(--muted2);font-size:0.85rem;margin-bottom:16px">
-        Primary domain: <b style="color:var(--text)">{primary_domain}</b>
-        &nbsp;·&nbsp;
-        Confidence: <b style="color:var(--text)">{round(primary_conf * 100, 1)}%</b>
-      </div>
-      <div style="height:8px;background:var(--surface3);border-radius:99px;overflow:hidden;max-width:400px">
-        <div style="width:{pct_overall}%;height:100%;background:{score_col};border-radius:99px;
-                    transition:width 1s ease"></div>
-      </div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);margin-top:6px">
-        {pct_overall}th percentile</div>
-    </div>
-    <div style="text-align:center;padding:20px 28px;background:var(--surface3);
-                border-radius:14px;border:1px solid var(--border2)">
-      <div style="font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;
-                  color:{score_col};line-height:1">{total_score}</div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);
-                  text-transform:uppercase;letter-spacing:0.1em;margin-top:4px">Score</div>
-    </div>
-  </div>
+
+sum_left, sum_right = st.columns([4, 1])
+
+with sum_left:
+    st.markdown(f"""<div class="card-sub" style="margin-bottom:10px">{safe_name}</div>
+<div style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-0.02em">
+  Overall Score: <span style="color:{score_col}">{total_score}</span>
+  <span style="font-size:0.9rem;color:var(--muted);font-weight:400"> / 65</span>
+</div>
+<div style="color:var(--muted2);font-size:0.84rem;margin-bottom:16px">
+  Primary domain: <strong style="color:var(--text)">{primary_domain}</strong>
+  &nbsp;·&nbsp;
+  Confidence: <strong style="color:var(--text)">{round(primary_conf * 100, 1)}%</strong>
+</div>""", unsafe_allow_html=True)
+
+    st.markdown(f"""<div style="height:6px;background:var(--surface3);border-radius:4px;overflow:hidden;max-width:400px">
+  <div style="width:{pct_overall}%;height:100%;background:{score_col};border-radius:4px;transition:width 0.8s ease"></div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--muted);margin-top:5px">
+  {pct_overall}th percentile</div>""", unsafe_allow_html=True)
+
+with sum_right:
+    st.markdown(f"""<div style="text-align:center;padding:20px 26px;background:var(--surface2);border-radius:12px;border:1px solid var(--border)">
+  <div style="font-size:2.8rem;font-weight:800;color:{score_col};line-height:1;letter-spacing:-0.03em">{total_score}</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:4px">Score</div>
 </div>""", unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -152,8 +146,8 @@ with col_left:
         "Skills": 20, "Projects": 15, "Internships": 20,
         "Achievements": 10, "Experience": 5, "Extras": 5, "CGPA": 10,
     }
-    COLORS = ["var(--accent)", "var(--accent2)", "var(--accent3)",
-              "var(--ok)", "var(--warn)", "#c084fc", "#22d3ee"]
+    COLORS = ["var(--accent)", "var(--purple)", "var(--pink)",
+              "var(--ok)", "var(--warn)", "#94a3b8", "var(--accent)"]
 
     for i, (label, val) in enumerate(score_breakdown.items()):
         max_v = MAX_PER_SECTION.get(label, 20)
@@ -176,9 +170,9 @@ with col_right:
         r=values + [values[0]],
         theta=categories + [categories[0]],
         fill='toself',
-        fillcolor='rgba(129,140,248,0.12)',
-        line=dict(color='#818cf8', width=2),
-        marker=dict(color='#818cf8', size=6),
+        fillcolor='rgba(79, 143, 247, 0.08)',
+        line=dict(color='#4f8ff7', width=2),
+        marker=dict(color='#4f8ff7', size=6),
     ))
     fig.update_layout(
         polar=dict(
@@ -186,21 +180,21 @@ with col_right:
             radialaxis=dict(
                 visible=True,
                 range=[0, 1],
-                tickfont=dict(color='#64748b', size=9, family='DM Mono'),
-                gridcolor='rgba(255,255,255,0.05)',
-                linecolor='rgba(255,255,255,0.05)',
+                tickfont=dict(color='#64748b', size=9, family='JetBrains Mono'),
+                gridcolor='rgba(255,255,255,0.04)',
+                linecolor='rgba(255,255,255,0.04)',
             ),
             angularaxis=dict(
-                tickfont=dict(color='#94a3b8', size=10, family='DM Sans'),
-                gridcolor='rgba(255,255,255,0.05)',
-                linecolor='rgba(255,255,255,0.05)',
+                tickfont=dict(color='#8896ab', size=10, family='Inter'),
+                gridcolor='rgba(255,255,255,0.04)',
+                linecolor='rgba(255,255,255,0.04)',
             ),
         ),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        font=dict(color='#e8edf5', family='DM Sans'),
+        font=dict(color='#e2e8f0', family='Inter'),
         margin=dict(l=40, r=40, t=20, b=20),
-        height=280,
+        height=300,
         showlegend=False,
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -229,7 +223,7 @@ for section, content in sections.items():
 
     if section == "skills":
         tokens = [t.strip() for t in re.split(r'[,\n|•/]', content) if t.strip() and len(t.strip()) > 1]
-        chip_colors = ["chip-indigo", "chip-teal", "chip-pink", "chip-green", "chip-warn"]
+        chip_colors = ["chip-teal", "chip-indigo", "chip-pink", "chip-green", "chip-warn"]
         chips = " ".join(
             render_chip(t, chip_colors[i % len(chip_colors)])
             for i, t in enumerate(tokens)
@@ -251,7 +245,7 @@ for section, content in sections.items():
             st.markdown(
                 f'<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;'
                 f'color:var(--muted2);font-size:0.85rem;">'
-                f'<span style="color:var(--warn);flex-shrink:0">▸</span>{line}</div>',
+                f'<span style="color:var(--muted);flex-shrink:0">›</span>{line}</div>',
                 unsafe_allow_html=True,
             )
 

@@ -5,7 +5,7 @@ Feature: Select 2–5 resumes from previously analysed results and compare them
 across every dimension: total score, per-section breakdown, skill overlap/gap,
 domain confidence, and a grouped radar chart.
 
-Requires the bulk analysis on the Dashboard to have been run first.
+Premium SaaS UI — clean, no neon or glassmorphism.
 """
 
 import re
@@ -35,16 +35,10 @@ st.set_page_config(
 )
 inject_styles()
 
-# Extra CSS just for this page
+# Extra CSS for this page
 st.markdown("""
 <style>
-.compare-header {
-    display: grid;
-    gap: 12px;
-    margin-bottom: 4px;
-}
 .compare-name {
-    font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     white-space: nowrap;
@@ -53,26 +47,26 @@ st.markdown("""
     color: var(--text);
 }
 .compare-score-big {
-    font-family: 'Syne', sans-serif;
     font-weight: 800;
     font-size: 2.6rem;
     line-height: 1;
+    letter-spacing: -0.03em;
 }
 .compare-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--muted);
     margin-top: 3px;
 }
 .row-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
-    padding: 13px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--border);
 }
 .cell {
@@ -84,46 +78,42 @@ st.markdown("""
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: rgba(74,222,128,0.12);
-    border: 1px solid rgba(74,222,128,0.25);
-    border-radius: 99px;
+    background: var(--ok-muted);
+    border-radius: 6px;
     padding: 2px 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
     color: var(--ok);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
 }
 .skill-chip-match {
     display: inline-block;
     padding: 3px 10px;
-    border-radius: 99px;
+    border-radius: 8px;
     font-size: 0.7rem;
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     margin: 2px;
-    background: rgba(110,231,183,0.1);
-    border: 1px solid rgba(110,231,183,0.2);
+    background: var(--accent-muted);
     color: var(--accent);
 }
 .skill-chip-unique {
     display: inline-block;
     padding: 3px 10px;
-    border-radius: 99px;
+    border-radius: 8px;
     font-size: 0.7rem;
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     margin: 2px;
-    background: rgba(129,140,248,0.1);
-    border: 1px solid rgba(129,140,248,0.2);
-    color: var(--accent2);
+    background: var(--purple-muted);
+    color: var(--purple);
 }
 .skill-chip-missing {
     display: inline-block;
     padding: 3px 10px;
-    border-radius: 99px;
+    border-radius: 8px;
     font-size: 0.7rem;
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     margin: 2px;
-    background: rgba(248,113,113,0.08);
-    border: 1px solid rgba(248,113,113,0.18);
+    background: var(--danger-muted);
     color: var(--danger);
 }
 </style>
@@ -140,9 +130,9 @@ load_model()
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="page-hero">
-  <div class="hero-badge">⚖️ Compare Resumes</div>
-  <h1 class="gradient-text">Side-by-Side Comparison</h1>
-  <p>Select 2 to 5 resumes from your analysed batch and compare them across every scoring dimension, skills overlap, and domain fit.</p>
+  <div class="hero-badge">Compare</div>
+  <h1>Side-by-Side Comparison</h1>
+  <p>Select 2 to 5 resumes and compare them across scoring dimensions, skills overlap, and domain fit.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -155,13 +145,13 @@ extracted_path = os.path.join(OUTPUT_DIR, "extracted.json")
 if not os.path.exists(ranking_path) or not os.path.exists(extracted_path):
     st.markdown("""
 <div class="card" style="text-align:center;padding:40px;border-style:dashed">
-  <div style="font-size:2.5rem;margin-bottom:12px">⚖️</div>
+  <div style="font-size:2rem;margin-bottom:12px">⚖️</div>
   <div class="card-title">No resumes analysed yet</div>
-  <div style="color:var(--muted2);font-size:0.85rem;margin-top:6px;margin-bottom:20px">
+  <div style="color:var(--muted2);font-size:0.85rem;margin-top:6px;margin-bottom:16px">
     Run a bulk analysis on the Dashboard first, then come back here to compare.
   </div>
 </div>""", unsafe_allow_html=True)
-    st.page_link("app.py", label="Go to Dashboard ->")
+    st.page_link("app.py", label="Go to Dashboard →")
     st.stop()
 
 # ── Load data ─────────────────────────────────────────────────────────────────
@@ -178,18 +168,18 @@ score_lookup = {
 }
 
 if len(all_resumes) < 2:
-    st.warning("You need at least 2 analysed resumes to use the compare feature. Upload more on the Dashboard.")
+    st.warning("You need at least 2 analysed resumes to use the compare feature.")
     st.stop()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # RESUME SELECTOR
 # ══════════════════════════════════════════════════════════════════════════════
-st.markdown('<div class="section-label">Select Resumes to Compare</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-label">Select Resumes</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="card">
-  <div class="card-title">⚖️ Choose Candidates</div>
-  <div class="card-sub" style="margin-bottom:14px">Pick 2 to 5 resumes · Ranked by score by default</div>
+  <div class="card-title">Choose Candidates</div>
+  <div class="card-sub" style="margin-bottom:14px">Pick 2 to 5 resumes · Ranked by score</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -198,7 +188,7 @@ selected = st.multiselect(
     options=all_resumes,
     default=all_resumes[:min(3, len(all_resumes))],
     max_selections=5,
-    help="Pick 2–5 resumes. They are ordered by overall score.",
+    help="Pick 2–5 resumes.",
     label_visibility="collapsed",
 )
 
@@ -213,11 +203,10 @@ MAX_PER_SECTION = {
     "Skills": 20, "Projects": 15, "Internships": 20,
     "Achievements": 10, "Experience": 5, "Extras": 5, "CGPA": 10,
 }
-CARD_COLORS = ["#6ee7b7", "#818cf8", "#f472b6", "#fb923c", "#4ade80"]
+CARD_COLORS = ["#4f8ff7", "#a78bfa", "#f472b6", "#e5a63e", "#4ade80"]
 
 
 def hex_to_rgba(hex_color: str, alpha: float) -> str:
-  """Convert '#RRGGBB' to Plotly-friendly 'rgba(r,g,b,a)' string."""
   hex_color = hex_color.lstrip("#")
   if len(hex_color) != 6:
     return f"rgba(255,255,255,{alpha})"
@@ -228,7 +217,6 @@ def hex_to_rgba(hex_color: str, alpha: float) -> str:
 
 
 def display_name(filename: str) -> str:
-    """Make uploaded filename easier to read in UI."""
     stem = os.path.splitext(filename)[0]
     return stem.replace("_", " ").strip() or filename
 
@@ -243,7 +231,6 @@ for name in selected:
         breakdown = {}
     stored_score = score_lookup.get(name, total)
 
-    # Extract skills list
     raw_skills = sections.get("skills", "")
     skills_list = sorted({
         s.strip().lower()
@@ -288,19 +275,19 @@ for i, (col, c) in enumerate(zip(cols, candidates)):
 
     with col:
         st.markdown(f"""
-<div class="card" style="border-top:3px solid {color};text-align:center;padding:22px 18px">
-  {'<div class="winner-badge" style="margin:0 auto 10px">🏆 Top Score</div>' if is_top else '<div style="height:22px;margin-bottom:10px"></div>'}
-    <div class="compare-name" style="text-align:center;margin-bottom:14px">{display_name(c['name'])}</div>
+<div class="card" style="border-top:2px solid {color};text-align:center;padding:22px 18px">
+  {'<div class="winner-badge" style="margin:0 auto 10px">🏆 Top Score</div>' if is_top else '<div style="height:20px;margin-bottom:10px"></div>'}
+  <div class="compare-name" style="text-align:center;margin-bottom:14px">{display_name(c['name'])}</div>
   <div class="compare-score-big" style="color:{s_col}">{c['score']}</div>
   <div class="compare-label">/ 65 points</div>
-  <div style="height:5px;background:var(--surface3);border-radius:99px;overflow:hidden;margin-top:14px">
-    <div style="width:{pct}%;height:100%;background:{color};border-radius:99px"></div>
+  <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden;margin-top:14px">
+    <div style="width:{pct}%;height:100%;background:{color};border-radius:4px"></div>
   </div>
-  <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-top:5px">{pct}th pct</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);margin-top:4px">{pct}th pct</div>
 </div>""", unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 2 — RADAR CHART (all candidates overlaid)
+# SECTION 2 — RADAR CHART
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown('<div class="section-label">Score Breakdown · Radar</div>', unsafe_allow_html=True)
 
@@ -317,14 +304,13 @@ with left_col:
     for i, c in enumerate(candidates):
         color_hex = CARD_COLORS[i % len(CARD_COLORS)]
         vals = [c["breakdown"].get(s, 0) for s in sections_order]
-        # normalise each dimension to 0–1 for fair radar display
         vals_norm = [v / MAX_PER_SECTION[s] for v, s in zip(vals, sections_order)]
 
         fig.add_trace(go.Scatterpolar(
             r=vals_norm + [vals_norm[0]],
             theta=sections_order + [sections_order[0]],
             fill="toself",
-          fillcolor=hex_to_rgba(color_hex, 0.15),
+            fillcolor=hex_to_rgba(color_hex, 0.08),
             line=dict(color=color_hex, width=2),
             marker=dict(size=5, color=color_hex),
             name=c["name"],
@@ -337,24 +323,24 @@ with left_col:
                 visible=True, range=[0, 1],
                 tickvals=[0.25, 0.5, 0.75, 1.0],
                 ticktext=["25%", "50%", "75%", "100%"],
-                tickfont=dict(size=8, color="#64748b", family="DM Mono"),
-                gridcolor="rgba(255,255,255,0.05)",
-                linecolor="rgba(255,255,255,0.05)",
+                tickfont=dict(size=8, color="#64748b", family="JetBrains Mono"),
+                gridcolor="rgba(255,255,255,0.04)",
+                linecolor="rgba(255,255,255,0.04)",
             ),
             angularaxis=dict(
-                tickfont=dict(size=10, color="#94a3b8", family="DM Sans"),
-                gridcolor="rgba(255,255,255,0.06)",
-                linecolor="rgba(255,255,255,0.06)",
+                tickfont=dict(size=10, color="#8896ab", family="Inter"),
+                gridcolor="rgba(255,255,255,0.04)",
+                linecolor="rgba(255,255,255,0.04)",
             ),
         ),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#e8edf5", family="DM Sans"),
+        font=dict(color="#e2e8f0", family="Inter"),
         legend=dict(
-            bgcolor="rgba(14,20,32,0.8)",
-            bordercolor="rgba(255,255,255,0.08)",
+            bgcolor="rgba(17,22,32,0.9)",
+            bordercolor="rgba(255,255,255,0.06)",
             borderwidth=1,
-            font=dict(size=10, color="#94a3b8", family="DM Mono"),
+            font=dict(size=10, color="#8896ab", family="JetBrains Mono"),
         ),
         margin=dict(l=40, r=40, t=20, b=20),
         height=360,
@@ -362,7 +348,6 @@ with left_col:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ── Per-section table ─────────────────────────────────────────────────────────
 with right_col:
     st.markdown('<div class="card" style="padding:22px">', unsafe_allow_html=True)
     st.markdown('<div class="card-title">Section Scores</div>', unsafe_allow_html=True)
@@ -382,12 +367,12 @@ with right_col:
             with bc:
                 st.markdown(f"""
 <div class="cell">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-    <span style="font-family:'DM Mono',monospace;font-size:0.8rem;color:{color if is_win else 'var(--muted2)'};font-weight:{'600' if is_win else '400'}">{v}</span>
-    {"<span style='font-size:0.6rem;color:var(--ok)'>▲</span>" if is_win else ""}
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:{color if is_win else 'var(--muted2)'};font-weight:{'600' if is_win else '400'}">{v}</span>
+    {"<span style='font-size:0.55rem;color:var(--ok)'>▲</span>" if is_win else ""}
   </div>
-  <div style="height:4px;background:var(--surface3);border-radius:99px;overflow:hidden">
-    <div style="width:{pct}%;height:100%;background:{color if is_win else 'var(--surface3)'};border-radius:99px;opacity:{'1' if is_win else '0.4'}"></div>
+  <div style="height:4px;background:var(--surface3);border-radius:4px;overflow:hidden">
+    <div style="width:{pct}%;height:100%;background:{color if is_win else 'var(--surface3)'};border-radius:4px;opacity:{'1' if is_win else '0.35'}"></div>
   </div>
 </div>""", unsafe_allow_html=True)
 
@@ -406,24 +391,22 @@ st.markdown(f"""
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
     <div>
       <div class="card-title">Skill Overlap & Gaps</div>
-      <div class="card-sub">Shared across all · Unique per candidate · Missing</div>
+      <div class="card-sub">Shared · Unique · Missing</div>
     </div>
     <div style="text-align:right">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--accent)">{len(shared_skills)}</div>
-      <div class="compare-label">shared skills</div>
+      <div style="font-size:1.6rem;font-weight:800;color:var(--accent);letter-spacing:-0.02em">{len(shared_skills)}</div>
+      <div class="compare-label">shared</div>
     </div>
   </div>
 
-  {'<div style="margin-bottom:16px"><div style="font-family:\'DM Mono\',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">✅ Shared by all candidates</div>' + " ".join(f'<span class="skill-chip-match">{s}</span>' for s in sorted(shared_skills)) + '</div>' if shared_skills else '<div style="color:var(--muted2);font-size:0.82rem;margin-bottom:16px;font-style:italic">No skills are shared across all selected candidates.</div>'}
+  {'<div style="margin-bottom:16px"><div style="font-family:\'JetBrains Mono\',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Shared by all</div>' + " ".join(f'<span class="skill-chip-match">{s}</span>' for s in sorted(shared_skills)) + '</div>' if shared_skills else '<div style="color:var(--muted2);font-size:0.82rem;margin-bottom:16px;font-style:italic">No skills shared across all candidates.</div>'}
 </div>
 """, unsafe_allow_html=True)
 
-# Per-candidate skill breakdown
 skill_cols = st.columns(len(candidates))
 for i, (col, c) in enumerate(zip(skill_cols, candidates)):
     color  = CARD_COLORS[i % len(CARD_COLORS)]
     unique = set(c["skills"]) - shared_skills
-    # "missing" = skills all OTHER candidates have but this one doesn't
     others_union = set.union(*(all_skill_sets[j] for j in range(len(candidates)) if j != i)) if len(candidates) > 1 else set()
     missing = others_union - set(c["skills"]) - shared_skills
 
@@ -432,20 +415,18 @@ for i, (col, c) in enumerate(zip(skill_cols, candidates)):
 
     with col:
         st.markdown(f"""
-<div class="card" style="border-top:3px solid {color};padding:18px 20px">
-    <div class="compare-name" style="margin-bottom:12px">{display_name(c['name'])}</div>
+<div class="card" style="border-top:2px solid {color};padding:18px 20px">
+  <div class="compare-name" style="margin-bottom:12px">{display_name(c['name'])}</div>
 
-  <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);
-              text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">
-    Unique skills ({len(unique)})
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">
+    Unique ({len(unique)})
   </div>
   <div style="margin-bottom:14px">
-    {unique_html or '<span style="color:var(--muted);font-size:0.78rem;font-style:italic">None unique</span>'}
+    {unique_html or '<span style="color:var(--muted);font-size:0.78rem;font-style:italic">None</span>'}
   </div>
 
-  <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--danger);
-              text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">
-    Missing vs others ({min(len(missing), 8)}{'+'if len(missing)>8 else ''})
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--danger);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">
+    Missing ({min(len(missing), 8)}{'+'if len(missing)>8 else ''})
   </div>
   <div>
     {missing_html or '<span style="color:var(--muted);font-size:0.78rem;font-style:italic">Nothing missing</span>'}
@@ -459,7 +440,7 @@ st.markdown('<div class="section-label">Domain Confidence</div>', unsafe_allow_h
 
 st.markdown('<div class="card" style="padding:22px">', unsafe_allow_html=True)
 st.markdown('<div class="card-title">Domain Fit Comparison</div>', unsafe_allow_html=True)
-st.markdown('<div class="card-sub" style="margin-bottom:12px">Semantic similarity to each domain — higher is stronger fit</div>', unsafe_allow_html=True)
+st.markdown('<div class="card-sub" style="margin-bottom:12px">Semantic similarity — higher is stronger fit</div>', unsafe_allow_html=True)
 
 domains = list(DOMAIN_QUERIES.keys())
 fig2    = go.Figure()
@@ -472,31 +453,31 @@ for i, c in enumerate(candidates):
         marker=dict(color=CARD_COLORS[i % len(CARD_COLORS)], opacity=0.85),
         text=[f"{c['domains'].get(d, 0):.2f}" for d in domains],
         textposition="outside",
-        textfont=dict(size=9, color="#94a3b8", family="DM Mono"),
+        textfont=dict(size=9, color="#8896ab", family="JetBrains Mono"),
     ))
 
 fig2.update_layout(
     barmode="group",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(color="#e8edf5", family="DM Sans"),
+    font=dict(color="#e2e8f0", family="Inter"),
     xaxis=dict(
         showgrid=False,
-        tickfont=dict(size=10, color="#94a3b8", family="DM Sans"),
-        linecolor="rgba(255,255,255,0.05)",
+        tickfont=dict(size=10, color="#8896ab", family="Inter"),
+        linecolor="rgba(255,255,255,0.04)",
     ),
     yaxis=dict(
         showgrid=True,
-        gridcolor="rgba(255,255,255,0.04)",
+        gridcolor="rgba(255,255,255,0.03)",
         range=[0, 1.1],
-        tickfont=dict(size=9, color="#64748b", family="DM Mono"),
+        tickfont=dict(size=9, color="#64748b", family="JetBrains Mono"),
         zeroline=False,
     ),
     legend=dict(
-        bgcolor="rgba(14,20,32,0.8)",
-        bordercolor="rgba(255,255,255,0.08)",
+        bgcolor="rgba(17,22,32,0.9)",
+        bordercolor="rgba(255,255,255,0.06)",
         borderwidth=1,
-        font=dict(size=10, color="#94a3b8", family="DM Mono"),
+        font=dict(size=10, color="#8896ab", family="JetBrains Mono"),
     ),
     margin=dict(l=10, r=10, t=20, b=10),
     height=300,
@@ -511,9 +492,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown('<div class="section-label">Verdict</div>', unsafe_allow_html=True)
 
-# Sort by score for ranking
 ranked_candidates = sorted(candidates, key=lambda x: x["score"], reverse=True)
-
 medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"]
 
 rank_index = st.slider(
@@ -530,18 +509,41 @@ dom_top = max(c["domains"], key=c["domains"].get)
 dom_conf = round(c["domains"][dom_top] * 100, 1)
 n_skills = len(c["skills"])
 n_unique = len(set(c["skills"]) - shared_skills)
+v_color = CARD_COLORS[rank % len(CARD_COLORS)]
 
-with st.container(border=True):
-    left, right = st.columns([5, 1])
-    with left:
-        title = f"{medal} {display_name(c['name'])}"
-        if rank == 0:
-            title += "  ·  Top Pick"
-        st.markdown(f"**{title}**")
-        st.caption(f"🎯 {dom_top} ({dom_conf}%)   |   ⚡ {n_skills} ({n_unique} unique)")
+left_v, right_v = st.columns([4, 1])
 
-        # Visual slider bars for quick comparison without verbose text labels.
-        st.progress(min(1.0, c["score"] / 65), text=f"{c['score']} / 65")
-        st.progress(min(1.0, dom_conf / 100), text=f"{dom_conf}%")
-    with right:
-        st.markdown(f"**{c['score']} / 65**")
+with left_v:
+    st.markdown(f"""<div style="font-weight:700;font-size:1.1rem;margin-bottom:8px">
+  {medal} {display_name(c['name'])}{'  ·  <span style="color:var(--ok)">Top Pick</span>' if rank == 0 else ''}
+</div>
+<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+  <span class="chip chip-teal">🎯 {dom_top} ({dom_conf}%)</span>
+  <span class="chip chip-indigo">⚡ {n_skills} skills ({n_unique} unique)</span>
+</div>""", unsafe_allow_html=True)
+
+    st.markdown(f"""<div style="margin-bottom:6px">
+  <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px">
+    <span style="color:var(--muted2)">Overall Score</span>
+    <span style="font-family:'JetBrains Mono',monospace;color:{v_color}">{c['score']} / 65</span>
+  </div>
+  <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden">
+    <div style="width:{min(100, round(c['score']/65*100))}%;height:100%;background:{v_color};border-radius:4px"></div>
+  </div>
+</div>""", unsafe_allow_html=True)
+
+    st.markdown(f"""<div>
+  <div style="display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:3px">
+    <span style="color:var(--muted2)">Domain Confidence</span>
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--accent)">{dom_conf}%</span>
+  </div>
+  <div style="height:5px;background:var(--surface3);border-radius:4px;overflow:hidden">
+    <div style="width:{dom_conf}%;height:100%;background:var(--accent);border-radius:4px"></div>
+  </div>
+</div>""", unsafe_allow_html=True)
+
+with right_v:
+    st.markdown(f"""<div style="text-align:center;padding:20px 24px;background:var(--surface2);border-radius:12px;border:1px solid var(--border);min-width:90px">
+  <div style="font-size:2.4rem;font-weight:800;color:{v_color};line-height:1;letter-spacing:-0.03em">{c['score']}</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:4px">Score</div>
+</div>""", unsafe_allow_html=True)
