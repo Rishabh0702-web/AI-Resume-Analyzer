@@ -581,8 +581,9 @@ def render_top_nav() -> None:
     with n_cols[0]:
         if role == "student":
             st.markdown("<div style='margin-bottom:8px'></div>", unsafe_allow_html=True)
-            c1, c2, c3 = st.columns([1, 2, 1])
+            c1, c2, c3, c4 = st.columns([1, 1.5, 1.5, 1])
             with c2: st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
+            with c3: st.page_link("pages/4_Resume_Builder.py", label="Resume Builder")
         else:
             c1, c2, c3, c4 = st.columns(4)
             with c1: st.page_link("app.py", label="App Overview")

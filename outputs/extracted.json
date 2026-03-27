@@ -34,5 +34,77 @@
     "achievements": "",
     "extras": "",
     "summary": "Sneha Iyer\nFrontend Developer | React | TypeScript\nsneha.iyer@dev.in (cid:127) +91-9090909090 (cid:127) Pune (cid:127) github.com/snehaiyer\nOBJECTIVE\nFrontend engineer with 3 years building performant, accessible React applications. Passionate about design\nsystems and Core Web Vitals optimisation."
+  },
+  "05_Rohit_Verma_DevOpsEngineer.pdf": {
+    "education": "B.E., Computer Science | Anna University | 2019 | 8.1 CGPA",
+    "skills": "(cid:127) AWS DevOps Professional (cid:127) CKA (Certified Kubernetes Admin)\nTerraform (cid:127) Ansible (cid:127) Helm (cid:127) Prometheus (cid:127) Grafana (cid:127) Python (cid:127) Bash",
+    "experience": "DevOps Lead \u2014 Zoho Corp (Apr 2021 \u2013 Present)\n(cid:127) Managed 200-node Kubernetes cluster across 3 AWS regions.\n(cid:127) Reduced infrastructure cost by 28% by right-sizing EC2 instances and using Spot.\n(cid:127) Built GitLab CI/CD pipelines reducing deployment time from 45 min to 8 min.\nDevOps Engineer \u2014 TCS (Jun 2019 \u2013 Mar 2021)\n(cid:127) Automated AMI baking with Packer and Ansible for 30+ microservices.\n(cid:127) Set up centralised logging with ELK stack handling 5GB logs/day.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Rohit Verma\nDevOps Engineer | AWS | Kubernetes | Terraform\nrohit.verma@cloud.in (cid:127) +91-9111222333 (cid:127) Chennai (cid:127) linkedin.com/in/rohitvermadevops\nPROFILE\nCloud-infrastructure specialist with 5 years automating CI/CD pipelines, managing Kubernetes clusters, and\nensuring 99.9% uptime for SaaS products."
+  },
+  "06_Ananya_Kapoor_MarketingManager.pdf": {
+    "education": "BBA, Marketing | Delhi University | 2019 | 76%",
+    "skills": "Google Ads (cid:127) Meta Ads Manager (cid:127) SEMrush (cid:127) Ahrefs (cid:127) HubSpot (cid:127) Klaviyo (cid:127) GA4 (cid:127) Canva",
+    "experience": "Digital Marketing Manager \u2014 Mamaearth (Feb 2021 \u2013 Present)\n(cid:127) Scaled Meta & Google ad spend from Rs 20L to Rs 1Cr/month maintaining 4.2x ROAS.\n(cid:127) Grew organic traffic 3x via technical SEO and content cluster strategy.\n(cid:127) Led influencer programme (200+ creators) contributing 25% of monthly revenue.\nMarketing Executive \u2014 Nykaa (Jun 2019 \u2013 Jan 2021)\n(cid:127) Managed email & WhatsApp CRM campaigns \u2014 32% open rate, 8% CTR.\n(cid:127) Supported launch campaigns for 15+ new brand partnerships.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Ananya Kapoor\nDigital Marketing Manager | Growth & Performance\nananya.kapoor@market.in (cid:127) +91-9900112233 (cid:127) Delhi NCR\nSUMMARY\n5-year digital marketing veteran specialising in performance campaigns, SEO, and brand strategy for D2C\nstartups. Managed Rs 3Cr+ annual ad budget with consistent 4x+ ROAS."
+  },
+  "07_Vikram_Singh_CybersecAnalyst.pdf": {
+    "education": "B.Tech, CSE | VIT Vellore | 2019 | CGPA 8.0\nOSCP (cid:127) CEH (cid:127) CompTIA Security+ (cid:127) eJPT",
+    "skills": "Burp Suite (cid:127) Metasploit (cid:127) Nmap (cid:127) Wireshark (cid:127) Splunk (cid:127) Python (cid:127) Linux (cid:127) Active Directory (cid:127) OWASP Top 10 (cid:127)\nMITRE ATT&CK;",
+    "experience": "Senior Security Analyst \u2014 KPMG India (Sep 2021 \u2013 Present)\n(cid:127) Led web & network pentests for 10 banking clients, uncovering critical SQLi and SSRF vulnerabilities.\n(cid:127) Performed red-team exercises simulating APT attack chains for 3 Fortune 500 clients.\n(cid:127) Wrote automated recon tooling in Python reducing assessment prep time by 50%.\nSecurity Engineer \u2014 Wipro CyberSec (Jul 2019 \u2013 Aug 2021)\n(cid:127) Monitored SIEM (Splunk) for 200+ clients; triaged 1K+ alerts monthly.\n(cid:127) Conducted VA/PT on 40+ web applications using Burp Suite and OWASP methodology.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Vikram Singh\nCybersecurity Analyst | Penetration Tester | OSCP\nvikram.singh@infosec.in (cid:127) +91-9888777666 (cid:127) Bengaluru (cid:127) tryhackme.com/p/v1kr4m\nPROFILE\nOffensive security analyst with 4 years of hands-on penetration testing for BFSI and healthcare clients.\nDiscovered 50+ CVEs; authored 3 responsible disclosure reports."
+  },
+  "08_Divya_Menon_UIUXDesigner.pdf": {
+    "education": "B.Des, Visual Communication | NID Ahmedabad | 2020 | GPA 3.9/4",
+    "skills": "Figma (cid:127) Adobe XD (cid:127) Illustrator (cid:127) Lottie / After Effects (cid:127) Maze (cid:127) Hotjar (cid:127) HTML/CSS (proficient) (cid:127) Accessibility (cid:127)\nDesign Tokens",
+    "experience": "Product Designer \u2014 Groww (Mar 2022 \u2013 Present)\n(cid:127) Redesigned onboarding flow reducing drop-off by 38% (validated via 200-user usability study).\n(cid:127) Built and maintained Groww Design System with 120+ components used by 15 engineers.\n(cid:127) Ran weekly design critiques and established accessibility standards (WCAG 2.1 AA).\nUI/UX Designer \u2014 Byju's (Jun 2020 \u2013 Feb 2022)\n(cid:127) Designed learning modules for Class 6-10 math \u2014 4.6/5 app-store rating after redesign.\n(cid:127) Created motion design specs in Lottie reducing developer handoff errors by 60%.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Divya Menon\nUI/UX Designer | Figma | Design Systems\ndivya.menon@design.in (cid:127) +91-9345678901 (cid:127) Bengaluru (cid:127) behance.net/divyamenon\nSUMMARY\nUser-centred designer with 4 years crafting intuitive digital experiences for fintech and edtech products. Expert\nin Figma, user research, and scaling design systems."
+  },
+  "09_Nishant_Agarwal_BusinessAnalyst.pdf": {
+    "education": "MBA Finance | NMIMS Mumbai | 2018 | GPA 3.7/4\nB.Com Honours | Sri Ram College of Commerce | 2016 | 85%",
+    "skills": "SQL (cid:127) Power BI (cid:127) Excel / VBA (cid:127) JIRA (cid:127) Confluence (cid:127) Agile (cid:127) BPMN (cid:127) Python (basics)",
+    "experience": "Business Analyst \u2014 HDFC Bank (Jul 2020 \u2013 Present)\n(cid:127) Led BRD development for core-banking modernisation \u2014 Rs 40Cr project, delivered on time.\n(cid:127) Built Power BI dashboards tracking 50+ KPIs for retail banking leadership.\n(cid:127) Facilitated UAT cycles for 8 regulatory compliance projects.\nAnalyst \u2014 Deloitte FSI (Jun 2018 \u2013 Jun 2020)\n(cid:127) Modelled credit risk scenarios in Excel VBA for 3 PSU banks.\n(cid:127) Prepared gap analyses for IFRS 9 compliance readiness.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Nishant Agarwal\nBusiness Analyst | BFSI Domain | CFA Level 2 Candidate\nnishant.agarwal@finance.in (cid:127) +91-9222333444 (cid:127) Mumbai (cid:127) linkedin.com/in/nishantaga\nSUMMARY\nDetail-oriented BA with 5 years bridging business requirements and technology in banking and capital markets.\nSkilled in SQL, Power BI, and process optimisation."
+  },
+  "10_Rishabh_Kumar_MLEngineer_Fresher.pdf": {
+    "education": "B.Tech, Computer Science & Engineering (AI/ML)\nIIIT Delhi | 2021 \u2013 2025 | CGPA: 8.9 / 10 | Dean's List 2023",
+    "skills": "Python (cid:127) PyTorch (cid:127) HuggingFace (cid:127) LangChain (cid:127) FastAPI (cid:127) SQL (cid:127) Git (cid:127) Docker (cid:127) Streamlit (cid:127) C++ (cid:127) DSA (Striver's\nA2Z \u2014 300+ problems)",
+    "experience": "ML Research Intern \u2014 Samsung R&D;, Noida | May \u2013 Jul 2024\n(cid:127) Implemented lightweight OCR pipeline (TrOCR fine-tune) achieving 94% accuracy on Hindi documents.",
+    "projects": "StudyMind AI | Python, LangChain, Whisper, Claude API\n(cid:127) Converts academic PDFs to audio podcasts & quiz questions; 200+ beta users.\nResume Analyzer | Streamlit, sentence-transformers, Claude API\n(cid:127) Multi-page app scoring resumes vs JD with 92% accuracy; presented at college hackathon.\nGesture Control System | OpenCV, MediaPipe, Python\n(cid:127) Real-time hand-gesture interface replacing mouse; achieved 95ms latency.",
+    "achievements": "(cid:127) Top 5 \u2014 Smart India Hackathon 2024 (10,000+ teams)\n(cid:127) Kaggle Expert \u2014 Competitions rank top 8% globally\n(cid:127) Google DSC Lead \u2014 organised 6 workshops for 500+ students",
+    "extras": "",
+    "summary": "Rishabh Kumar\nB.Tech CSE (AI/ML) | Fresher 2025 | Seeking ML Engineer Role\nrishabh.kumar@student.in (cid:127) +91-8899001122 (cid:127) Noida (cid:127) github.com/rishabh-ml\nOBJECTIVE\nPassionate CSE graduate with strong fundamentals in deep learning, NLP, and Python. Eager to contribute to\nproduction ML systems and grow in a fast-paced engineering team."
+  },
+  "11_Meghna_Tiwari_HRManager.pdf": {
+    "education": "MBA, HRM | XLRI Jamshedpur | 2018\nB.A. Psychology | Fergusson College, Pune | 2016 | 82%",
+    "skills": "Talent Acquisition (cid:127) HRMS (Darwinbox, Workday) (cid:127) Power BI (cid:127) Compensation Benchmarking (cid:127) DEI (cid:127) Labour\nLaw (India) (cid:127) Python (basics)",
+    "experience": "HR Manager \u2014 Swiggy (Jan 2021 \u2013 Present)\n(cid:127) Led tech and non-tech hiring for 400+ roles/year; filled 92% within SLA.\n(cid:127) Launched L&D; programme \u2014 200+ hours of content; 78% completion rate.\n(cid:127) Designed performance review framework adopted company-wide (5K employees).\nHR Business Partner \u2014 Paytm (Aug 2018 \u2013 Dec 2020)\n(cid:127) Partnered with 8 business units, managing 600-employee portfolio.\n(cid:127) Conducted 150+ exit interviews; built attrition dashboard in Power BI reducing regretted exits 20%.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Meghna Tiwari\nHR Manager | Talent Acquisition | People Analytics\nmeghna.tiwari@hrpro.in (cid:127) +91-9776655443 (cid:127) Gurgaon\nSUMMARY\nEmpathetic HR leader with 6 years driving talent strategy for tech startups (50\u20132000 headcount). Reduced\ntime-to-hire by 35% and improved eNPS from 28 to 56 at previous role."
+  },
+  "12_Aditya_Joshi_EmbeddedEngineer.pdf": {
+    "education": "B.E., Electronics & Telecommunication | COEP Pune | 2019 | CGPA 8.6",
+    "skills": "C (cid:127) C++ (cid:127) Python (cid:127) FreeRTOS (cid:127) Zephyr (cid:127) STM32 (cid:127) ESP32 (cid:127) CAN / I2C / SPI / UART (cid:127) JTAG / OpenOCD (cid:127)\nAUTOSAR (cid:127) Git (cid:127) Keil (cid:127) IAR Workbench",
+    "experience": "Embedded Systems Engineer \u2014 Tata Elxsi (Jun 2021 \u2013 Present)\n(cid:127) Developed AUTOSAR-compliant ADAS firmware for Tier-1 automotive OEM (MISRA-C certified).\n(cid:127) Reduced boot time of smart-meter MCU from 3.2s to 0.8s by optimising linker script and startup code.\n(cid:127) Ported FreeRTOS kernel to custom ARM Cortex-M4 board achieving 95% CPU utilisation efficiency.\nFirmware Engineer \u2014 L&T; Technology Services (Jul 2019 \u2013 May 2021)\n(cid:127) Wrote BLE firmware for industrial asset trackers \u2014 18-month battery life on CR2032.\n(cid:127) Debugged CAN bus communication issues on factory-floor PLCs saving Rs 15L in recall costs.",
+    "projects": "",
+    "achievements": "",
+    "extras": "",
+    "summary": "Aditya Joshi\nEmbedded Systems Engineer | IoT | RTOS | C/C++\naditya.joshi@embedded.in (cid:127) +91-9654321098 (cid:127) Pune (cid:127) github.com/adityajoshi-hw\nPROFILE\nEmbedded engineer with 5 years designing firmware for industrial IoT devices and automotive ECUs. Proficient\nin C/C++, FreeRTOS, CAN, and low-level hardware debugging."
   }
 }
