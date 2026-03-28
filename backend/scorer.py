@@ -137,7 +137,7 @@ def score_resume(sections: dict, return_breakdown: bool = False) -> float | tupl
     if cgpa is not None:
         breakdown["CGPA"] = round(min((cgpa / 10) * 10, 10), 2)
 
-    total = round(sum(breakdown.values()), 2)
+    total = int(round(sum(breakdown.values())))
 
     if return_breakdown:
         return total, breakdown

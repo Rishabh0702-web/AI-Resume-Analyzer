@@ -18,6 +18,7 @@ from backend.extractor import extract_text
 from backend.section_splitter import split_sections
 from backend.scorer import score_resume
 from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
+from backend.database import save_result
 from backend.utils import sanitize_filename
 from frontend.styles import inject_styles, score_color, render_score_bar, render_chip, render_top_nav
 
@@ -82,6 +83,14 @@ with st.spinner("Extracting and scoring…"):
     text     = extract_text(temp_path)
     sections = split_sections(text)
     total_score, score_breakdown = score_resume(sections, return_breakdown=True)
+
+    # Save to MongoDB
+    data = {
+        "resume_name": safe_name,
+        "score": total_score,
+        "sections": sections,
+    }
+    save_result(data)
 
     try:
         os.remove(temp_path)

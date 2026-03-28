@@ -251,7 +251,13 @@ if analyze and not st.session_state.analysis_running:
             "score": score,
             "sections": sections,
         }
-        save_result(data)
+        success = save_result(data)
+        if success:
+            st.toast(f"✅ Saved {safe_name} to MongoDB")
+        else:
+            from backend.database import get_database_status
+            err = get_database_status().get('error', 'Unknown Error')
+            st.error(f"❌ Failed to save {safe_name} to MongoDB. Error: {err}")
 
     # Save outputs
     ranking_df = pd.DataFrame(
