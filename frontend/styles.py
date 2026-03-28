@@ -566,35 +566,85 @@ def render_top_nav() -> None:
 [data-testid="stSidebar"] { display: none !important; }
 [data-testid="stSidebarNavItems"] { display: none !important; }
 [data-testid="stSidebarNav"] { display: none !important; }
+.notif-bell {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+}
+.notif-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--danger);
+    color: #fff;
+    border-radius: 50%;
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}
 </style>
 """, unsafe_allow_html=True)
     
     if not st.session_state.get("logged_in"):
         return
 
-    # Check role
     role = st.session_state.get("role", "hr")
+    user_name = st.session_state.get("user_name", "User")
     
     # Layout with logout button on the right
     n_cols = st.columns([10, 2])
     
     with n_cols[0]:
         if role == "student":
+            # Count unread notifications for this student
+            import json, os
+            _base = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+            _jobs_path = os.path.join(_base, "outputs", "jobs.json")
+            _student_domain = st.session_state.get("student_domain", "")
+            _notif_count = 0
+            if os.path.exists(_jobs_path):
+                try:
+                    with open(_jobs_path) as _f:
+                        _all_jobs = json.load(_f)
+                    _notif_count = sum(1 for j in _all_jobs if j.get("domain") == _student_domain)
+                except Exception:
+                    pass
+
             st.markdown("<div style='margin-bottom:8px'></div>", unsafe_allow_html=True)
-            c1, c2, c3, c4 = st.columns([1, 1.5, 1.5, 1])
-            with c2: st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
-            with c3: st.page_link("pages/4_Resume_Builder.py", label="Resume Builder")
+            c1, c2, c3, c4 = st.columns([2, 2, 2, 1])
+            with c1:
+                st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
+            with c2:
+                st.page_link("pages/6_Resume_Builder.py", label="📝 Resume Builder")
+            with c3:
+                _bell_label = f"🔔 Notifications ({_notif_count})" if _notif_count > 0 else "🔔 Notifications"
+                st.page_link("pages/5_Notifications.py", label=_bell_label)
+            with c4:
+                st.markdown(f"<div style='font-size:0.8rem;color:var(--muted2);padding-top:8px;text-align:right'>👤 {user_name}</div>", unsafe_allow_html=True)
         else:
-            c1, c2, c3, c4 = st.columns(4)
+            c1, c2, c3, c4, c5, c6 = st.columns([1, 1, 1, 1, 1, 1])
             with c1: st.page_link("app.py", label="App Overview")
             with c2: st.page_link("pages/1_Resume_Analysis.py", label="Resume Analysis")
             with c3: st.page_link("pages/2_Best_Profile.py", label="Best Profiles")
             with c4: st.page_link("pages/3_Compare_Resumes.py", label="Compare Resumes")
+            with c5: st.page_link("pages/4_Post_Job.py", label="📋 Post Job")
+            with c6:
+                st.markdown(f"<div style='font-size:0.8rem;color:var(--muted2);padding-top:8px;text-align:right'>👤 {user_name}</div>", unsafe_allow_html=True)
             
     with n_cols[1]:
         if st.button("Log Out", use_container_width=True):
             st.session_state["logged_in"] = False
             st.session_state["role"] = None
+            st.session_state["user_id"] = None
+            st.session_state["user_name"] = None
+            st.session_state["student_domain"] = None
             st.switch_page("app.py")
             
     st.markdown("<hr style='margin-top: 10px; margin-bottom: 30px;'/>", unsafe_allow_html=True)
+

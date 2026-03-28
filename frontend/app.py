@@ -53,18 +53,30 @@ load_model()
 # ── Styles ────────────────────────────────────────────────────────────────────
 inject_styles()
 
+# ── User credentials database ─────────────────────────────────────────────────
+USERS = {
+    "hr001":  {"password": "hr123",  "name": "Priya Sharma",  "role": "hr",      "domain": None},
+    "hr002":  {"password": "hr456",  "name": "Rahul Verma",   "role": "hr",      "domain": None},
+    "stu001": {"password": "stu123", "name": "Rishabh Gupta", "role": "student", "domain": "Machine Learning"},
+    "stu002": {"password": "stu456", "name": "Ananya Singh",  "role": "student", "domain": "Machine Learning"},
+    "stu003": {"password": "stu789", "name": "Arjun Mehta",   "role": "student", "domain": "Machine Learning"},
+    "stu004": {"password": "stu321", "name": "Sneha Patel",   "role": "student", "domain": "Web Development"},
+    "stu005": {"password": "stu654", "name": "Vikram Reddy",  "role": "student", "domain": "Web Development"},
+}
+
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
     st.session_state.role = None
+    st.session_state.user_id = None
+    st.session_state.user_name = None
+    st.session_state.student_domain = None
 
 if not st.session_state.logged_in:
     _, col, _ = st.columns([1, 1.2, 1])
     with col:
         st.markdown("<h2 style='text-align:center; margin-top: 100px; font-weight:800; letter-spacing: 1px;'>DASHBOARD</h2>", unsafe_allow_html=True)
-        # Use HTML to center elements or native Streamlit widgets with proper spacing
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # A simple hack to center the selectbox natively
         _, sel_col, _ = st.columns([1, 2, 1])
         with sel_col:
             role_selection = st.selectbox("Role", ["Select", "HR", "Student"], label_visibility="collapsed")
@@ -87,17 +99,27 @@ if not st.session_state.logged_in:
         _, btn_col, _ = st.columns([1, 1.5, 1])
         with btn_col:
             if st.button("Login", use_container_width=True):
-                if user_id and password and role_selection != "Select":
+                if role_selection == "Select":
+                    st.error("Please select a specific role.")
+                elif not user_id or not password:
+                    st.error("Please enter credentials.")
+                elif user_id not in USERS:
+                    st.error("Invalid user ID.")
+                elif USERS[user_id]["password"] != password:
+                    st.error("Incorrect password.")
+                elif USERS[user_id]["role"] != role_selection.lower().strip():
+                    st.error(f"User '{user_id}' is not registered as {role_selection}.")
+                else:
+                    user = USERS[user_id]
                     st.session_state.logged_in = True
-                    st.session_state.role = role_selection.lower().strip()
+                    st.session_state.role = user["role"]
+                    st.session_state.user_id = user_id
+                    st.session_state.user_name = user["name"]
+                    st.session_state.student_domain = user.get("domain")
                     if st.session_state.role == "student":
                         st.switch_page("pages/1_Resume_Analysis.py")
                     else:
                         st.rerun()
-                elif role_selection == "Select":
-                    st.error("Please select a specific role.")
-                else:
-                    st.error("Please enter credentials.")
                     
     st.markdown("""
     <style>
