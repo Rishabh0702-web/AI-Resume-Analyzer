@@ -12,7 +12,7 @@ Fixes applied:
         rather than a magic number buried in a function call.
 """
 
-from sentence_transformers import SentenceTransformer
+from typing import Any
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
@@ -34,10 +34,10 @@ DOMAIN_THRESHOLD: float = 0.22
 
 # ── Model singleton ────────────────────────────────────────────────────────
 
-_model: SentenceTransformer | None = None
+_model: Any | None = None
 
 
-def get_model() -> SentenceTransformer:
+def get_model() -> Any:
     """
     Return the shared SentenceTransformer instance, loading it once.
 
@@ -46,6 +46,7 @@ def get_model() -> SentenceTransformer:
     """
     global _model
     if _model is None:
+        from sentence_transformers import SentenceTransformer
         _model = SentenceTransformer("all-MiniLM-L6-v2")
     return _model
 
