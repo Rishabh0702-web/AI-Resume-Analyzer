@@ -48,7 +48,6 @@ DOMAIN_COLORS = {
 def load_model():
     return get_model()
 
-load_model()
 
 # ── Styles ────────────────────────────────────────────────────────────────────
 inject_styles()
