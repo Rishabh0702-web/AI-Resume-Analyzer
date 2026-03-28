@@ -23,7 +23,7 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
 from backend.scorer import score_resume
-from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
+from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES
 from frontend.styles import inject_styles, score_color, render_chip, render_top_nav
 
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
@@ -126,11 +126,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-@st.cache_resource
-def load_model():
-    return get_model()
 
-load_model()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO

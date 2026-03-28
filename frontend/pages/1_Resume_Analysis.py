@@ -17,7 +17,7 @@ if BASE_DIR not in sys.path:
 from backend.extractor import extract_text
 from backend.section_splitter import split_sections
 from backend.scorer import score_resume
-from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
+from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES
 from backend.database import save_result
 from backend.utils import sanitize_filename
 from frontend.styles import inject_styles, score_color, render_score_bar, render_chip, render_top_nav
@@ -30,11 +30,7 @@ if not st.session_state.get("logged_in"):
 
 render_top_nav()
 
-@st.cache_resource
-def load_model():
-    return get_model()
-
-load_model()
+        
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO HEADER

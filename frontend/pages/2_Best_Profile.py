@@ -14,7 +14,7 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from backend.semantic_search import ResumeSemanticSearch, get_model
+from backend.semantic_search import ResumeSemanticSearch
 from frontend.styles import inject_styles, score_color, render_chip, render_top_nav
 
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
@@ -29,11 +29,7 @@ if st.session_state.get("role") == "student":
 
 render_top_nav()
 
-@st.cache_resource
-def load_model():
-    return get_model()
 
-load_model()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # HERO HEADER

@@ -501,6 +501,10 @@ hr { border-color: var(--border) !important; }
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(79, 143, 247, 0); }
+    50%      { box-shadow: 0 0 0 4px rgba(79, 143, 247, 0.12); }
+}
 
 /* ── SCROLLBAR ──────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -508,18 +512,226 @@ hr { border-color: var(--border) !important; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border3); }
 
-/* ── PURE CSS CUSTOM SVG CURSOR ─────────────────────────────────── */
+/* ── SMOOTH ANIMATED CURSOR ─────────────────────────────────────── */
 /* Default ring cursor */
 html, body, .stApp, [data-testid="stAppViewContainer"] {
-    cursor: url('data:image/svg+xml;utf8,<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="12" fill="none" stroke="%234f8ff7" stroke-width="2"/></svg>') 14 14, auto !important;
+    cursor: url('data:image/svg+xml;utf8,<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="12" fill="none" stroke="%234f8ff7" stroke-width="2" opacity="0.8"/></svg>') 14 14, auto !important;
 }
 
 /* Expanded ring on hover for interactive elements */
-button, a, a *, button *, [role="slider"], [role="button"], [data-testid="stFileUploader"] *, [data-testid="stDownloadButton"] *, input, textarea, select, .stButton * {
-    cursor: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="rgba(79,143,247,0.15)" stroke="%234f8ff7" stroke-width="2"/></svg>') 20 20, pointer !important;
+button, a, a *, button *, [role="slider"], [role="button"],
+[data-testid="stFileUploader"] *, [data-testid="stDownloadButton"] *,
+input, textarea, select, .stButton *,
+[data-testid="stPageLink"] *, [data-testid="stMultiSelect"] *,
+.chip, .card, .stat-card, .domain-card, .candidate-card,
+[data-testid="stSelectbox"] * {
+    cursor: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" fill="rgba(79,143,247,0.12)" stroke="%234f8ff7" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="%234f8ff7" opacity="0.6"/></svg>') 20 20, pointer !important;
 }
 
-/* Hide Streamlit branding & sidebar collapse button ("keyboard_double" text) */
+/* ── ENHANCED HOVER EFFECTS ─────────────────────────────────────── */
+/* All interactive elements get a smooth lift + glow */
+.stButton > button,
+[data-testid="stDownloadButton"] > button,
+[data-testid="stPageLink"] a {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.stButton > button:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 6px 20px rgba(79,143,247,0.32) !important;
+}
+.stButton > button:active {
+    transform: translateY(0) scale(0.98) !important;
+    transition-duration: 0.1s !important;
+}
+
+/* Page links in top nav — smooth underline reveal */
+[data-testid="stPageLink"] a {
+    position: relative;
+    transition: color 0.2s ease !important;
+}
+[data-testid="stPageLink"] a:hover {
+    color: var(--accent) !important;
+}
+
+/* Cards — lift & border glow on hover */
+.card, .stat-card, .domain-card, .candidate-card {
+    transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease !important;
+}
+.card:hover, .stat-card:hover, .domain-card:hover, .candidate-card:hover {
+    border-color: var(--accent) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(79,143,247,0.08) !important;
+}
+
+/* Chips — pop on hover */
+.chip {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+.chip:hover {
+    transform: translateY(-1px) scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    filter: brightness(1.15) !important;
+}
+
+/* Upload zone — pulse glow border on hover */
+[data-testid="stFileUploader"]:hover {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-muted) !important;
+}
+
+/* ── RESPONSIVE DESIGN ──────────────────────────────────────────── */
+
+/* Tablet — ≤1024px */
+@media (max-width: 1024px) {
+    .block-container {
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
+    }
+    .page-hero {
+        padding: 28px 24px !important;
+    }
+    h1 {
+        font-size: 1.65rem !important;
+    }
+    .stat-card-value {
+        font-size: 1.8rem !important;
+    }
+    .domain-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Mobile — ≤768px */
+@media (max-width: 768px) {
+    .block-container {
+        padding-left: 0.8rem !important;
+        padding-right: 0.8rem !important;
+        padding-top: 1rem !important;
+    }
+    .page-hero {
+        padding: 22px 18px !important;
+        margin-bottom: 18px !important;
+    }
+    .page-hero p {
+        font-size: 0.82rem !important;
+    }
+    h1 {
+        font-size: 1.4rem !important;
+    }
+    h2 {
+        font-size: 1.15rem !important;
+    }
+    .card {
+        padding: 16px 18px !important;
+        margin-bottom: 10px !important;
+    }
+    .card-title {
+        font-size: 0.88rem !important;
+    }
+    .stat-card {
+        padding: 16px 18px !important;
+    }
+    .stat-card-value {
+        font-size: 1.5rem !important;
+    }
+    .stat-card-label {
+        font-size: 0.55rem !important;
+    }
+    .candidate-card {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding: 16px 18px !important;
+    }
+    .fit-score-badge {
+        font-size: 1.3rem !important;
+        text-align: left !important;
+    }
+    .fit-score-label {
+        text-align: left !important;
+    }
+    .domain-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .section-label {
+        font-size: 0.55rem !important;
+        margin: 18px 0 8px !important;
+    }
+    .hero-badge {
+        font-size: 0.62rem !important;
+        padding: 3px 8px !important;
+        margin-bottom: 10px !important;
+    }
+    .chip {
+        font-size: 0.62rem !important;
+        padding: 3px 8px !important;
+    }
+    .score-bar-header {
+        font-size: 0.76rem !important;
+    }
+    .score-bar-value {
+        font-size: 0.68rem !important;
+    }
+
+    /* Stack columns on mobile */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+    }
+    [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+        min-width: 100% !important;
+    }
+
+    /* Streamlit elements */
+    .stButton > button {
+        padding: 8px 16px !important;
+        font-size: 0.82rem !important;
+    }
+    [data-testid="stTextArea"] textarea {
+        font-size: 0.82rem !important;
+    }
+    [data-testid="stFileUploader"] {
+        padding: 14px !important;
+    }
+}
+
+/* Small mobile — ≤480px */
+@media (max-width: 480px) {
+    .block-container {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    h1 {
+        font-size: 1.2rem !important;
+    }
+    .page-hero {
+        padding: 18px 14px !important;
+    }
+    .card {
+        padding: 14px 14px !important;
+        border-radius: 10px !important;
+    }
+    .stat-card-value {
+        font-size: 1.3rem !important;
+    }
+    .compare-score-big {
+        font-size: 1.8rem !important;
+    }
+}
+
+/* ── INSTANT PAGE PAINT ─────────────────────────────────────────── */
+/* Make the content visible immediately — no flash-of-blank */
+.stApp {
+    opacity: 1 !important;
+    animation: none !important;
+}
+/* Faster mount animations for above-the-fold content */
+.page-hero {
+    animation: fadeIn 0.25s ease both !important;
+}
+.card, .stat-card {
+    animation: fadeSlide 0.2s ease both !important;
+}
+
+/* Hide Streamlit branding & sidebar collapse button */
 #MainMenu, footer, header { visibility: hidden; }
 [data-testid="collapsedControl"],
 [data-testid="stSidebarCollapseButton"] { display: none !important; }
