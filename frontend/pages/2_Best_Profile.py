@@ -15,12 +15,19 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
 from backend.semantic_search import ResumeSemanticSearch, get_model
-from frontend.styles import inject_styles, score_color, render_chip
+from frontend.styles import inject_styles, score_color, render_chip, render_top_nav
 
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
 st.set_page_config(page_title="ResumeIQ — Best Fit", page_icon="🎯", layout="wide")
 inject_styles()
+
+if not st.session_state.get("logged_in"):
+    st.switch_page("app.py")
+if st.session_state.get("role") == "student":
+    st.switch_page("pages/1_Resume_Analysis.py")
+
+render_top_nav()
 
 @st.cache_resource
 def load_model():

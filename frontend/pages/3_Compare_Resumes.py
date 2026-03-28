@@ -24,7 +24,7 @@ if BASE_DIR not in sys.path:
 
 from backend.scorer import score_resume
 from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
-from frontend.styles import inject_styles, score_color, render_chip
+from frontend.styles import inject_styles, score_color, render_chip, render_top_nav
 
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
 
@@ -34,6 +34,13 @@ st.set_page_config(
     layout="wide",
 )
 inject_styles()
+
+if not st.session_state.get("logged_in"):
+    st.switch_page("app.py")
+if st.session_state.get("role") == "student":
+    st.switch_page("pages/1_Resume_Analysis.py")
+
+render_top_nav()
 
 # Extra CSS for this page
 st.markdown("""

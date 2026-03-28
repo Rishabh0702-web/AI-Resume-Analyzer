@@ -1,0 +1,30 @@
+[
+  {
+    "id": "35f3d61d",
+    "title": "ML Engineer Intern",
+    "domain": "Machine Learning",
+    "salary": "6L - 10L per annum",
+    "working_hours": "9 AM - 6 PM, Mon-Fri",
+    "location": "Bangalore",
+    "experience": "Fresher",
+    "description": "Work on ML models for NLP and computer vision.",
+    "requirements": "Python, PyTorch, TensorFlow, NLP",
+    "posted_by": "hr001",
+    "posted_by_name": "Priya Sharma",
+    "posted_at": "2026-03-21T08:16:39.407300"
+  },
+  {
+    "id": "552bc661",
+    "title": "MERN Stack Developer",
+    "domain": "Web Development",
+    "salary": "5L - 8L per annum",
+    "working_hours": "10 AM - 7 PM, Mon-Fri",
+    "location": "Remote",
+    "experience": "0-2 years",
+    "description": "Build web apps using React, Node.js, Express, MongoDB.",
+    "requirements": "React, Node.js, MongoDB, JavaScript",
+    "posted_by": "hr001",
+    "posted_by_name": "Priya Sharma",
+    "posted_at": "2026-03-21T08:17:20.054000"
+  }
+]

@@ -19,10 +19,15 @@ from backend.section_splitter import split_sections
 from backend.scorer import score_resume
 from backend.semantic_search import ResumeSemanticSearch, DOMAIN_QUERIES, get_model
 from backend.utils import sanitize_filename
-from frontend.styles import inject_styles, score_color, render_score_bar, render_chip
+from frontend.styles import inject_styles, score_color, render_score_bar, render_chip, render_top_nav
 
 st.set_page_config(page_title="ResumeIQ — Analysis", page_icon="📊", layout="wide")
 inject_styles()
+
+if not st.session_state.get("logged_in"):
+    st.switch_page("app.py")
+
+render_top_nav()
 
 @st.cache_resource
 def load_model():
